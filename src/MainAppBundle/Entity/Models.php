@@ -88,6 +88,14 @@ class Models
      */
     private $power;
 
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="point", type="integer")
+     */
+    private $point;
+
     /**
      * @var array(Weapon)
      *
@@ -354,5 +362,29 @@ class Models
     public function getSave()
     {
         return $this->save;
+    }
+
+    /**
+     * Set point
+     *
+     * @param integer $point
+     *
+     * @return Models
+     */
+    public function setPoint($point)
+    {
+        $this->point = $point;
+
+        return $this;
+    }
+
+    /**
+     * Get point
+     *
+     * @return integer
+     */
+    public function getPoint()
+    {
+        return $this->point;
     }
 }

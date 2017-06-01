@@ -23,11 +23,26 @@ class SquadType
 
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $name;
+
+    /**
      * @var array(squads)
      *
      * @ORM\OneToMany(targetEntity="MainAppBundle\Entity\Squad", mappedBy="type")
      */
     private $squads;
+
+    /**
+     *
+     *
+     * @ORM\OneToMany(targetEntity="MainAppBundle\Entity\FormationRequirement", mappedBy="SquadType")
+     */
+    private $formationRequirements;
 
     /**
      * Get id
@@ -80,5 +95,63 @@ class SquadType
     public function getSquads()
     {
         return $this->squads;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return SquadType
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Add formationRequirement
+     *
+     * @param \MainAppBundle\Entity\FormationRequirement $formationRequirement
+     *
+     * @return SquadType
+     */
+    public function addFormationRequirement(\MainAppBundle\Entity\FormationRequirement $formationRequirement)
+    {
+        $this->formationRequirements[] = $formationRequirement;
+
+        return $this;
+    }
+
+    /**
+     * Remove formationRequirement
+     *
+     * @param \MainAppBundle\Entity\FormationRequirement $formationRequirement
+     */
+    public function removeFormationRequirement(\MainAppBundle\Entity\FormationRequirement $formationRequirement)
+    {
+        $this->formationRequirements->removeElement($formationRequirement);
+    }
+
+    /**
+     * Get formationRequirements
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFormationRequirements()
+    {
+        return $this->formationRequirements;
     }
 }

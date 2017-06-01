@@ -63,6 +63,19 @@ class Weapon
      */
     private $type;
 
+    /**
+     * @var array(weaponList)
+     *
+     * @ORM\ManyToMany(targetEntity="MainAppBundle\Entity\weaponList", inversedBy="weapons")
+     */
+    private $weaponLists;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="price", type="integer")
+     */
+    private $price;
 
     /**
      * Get id
@@ -216,5 +229,70 @@ class Weapon
     public function getDommage()
     {
         return $this->dommage;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->weaponLists = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add weaponList
+     *
+     * @param \MainAppBundle\Entity\weaponList $weaponList
+     *
+     * @return Weapon
+     */
+    public function addWeaponList(\MainAppBundle\Entity\weaponList $weaponList)
+    {
+        $this->weaponLists[] = $weaponList;
+
+        return $this;
+    }
+
+    /**
+     * Remove weaponList
+     *
+     * @param \MainAppBundle\Entity\weaponList $weaponList
+     */
+    public function removeWeaponList(\MainAppBundle\Entity\weaponList $weaponList)
+    {
+        $this->weaponLists->removeElement($weaponList);
+    }
+
+    /**
+     * Get weaponLists
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getWeaponLists()
+    {
+        return $this->weaponLists;
+    }
+
+    /**
+     * Set price
+     *
+     * @param integer $price
+     *
+     * @return Weapon
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return integer
+     */
+    public function getPrice()
+    {
+        return $this->price;
     }
 }
