@@ -10,4 +10,10 @@ class DefaultController extends Controller
     {
         return $this->render('MainAppBundle:Default:index.html.twig');
     }
+
+    public function modelAction()
+    {
+        return $this->render('MainAppBundle:Default:Model.html.twig');
+    }
+
 }

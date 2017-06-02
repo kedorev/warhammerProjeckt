@@ -77,6 +77,10 @@ class Weapon
      */
     private $price;
 
+
+
+
+
     /**
      * Get id
      *
@@ -294,5 +298,29 @@ class Weapon
     public function getPrice()
     {
         return $this->price;
+    }
+
+    /**
+     * Set weaponSwitch
+     *
+     * @param \MainAppBundle\Entity\weaponList $weaponSwitch
+     *
+     * @return Weapon
+     */
+    public function setWeaponSwitch(\MainAppBundle\Entity\weaponList $weaponSwitch = null)
+    {
+        $this->weaponSwitch = $weaponSwitch;
+
+        return $this;
+    }
+
+    /**
+     * Get weaponSwitch
+     *
+     * @return \MainAppBundle\Entity\weaponList
+     */
+    public function getWeaponSwitch()
+    {
+        return $this->weaponSwitch;
     }
 }
