@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Warhammer{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    {% block header %}
+        {% embed "@MainApp/Default/header.html.twig" %}
+        {% endembed %}
+    {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block navbar %}
+            {% embed "@MainApp/Default/navbar.html.twig" %}
+            {% endembed %}
+        {% endblock %}
+        {% block body %}
+
+        {% endblock %}
+        {% block footer %}
+            {% embed "@MainApp/Default/footer.html.twig" %}
+            {% endembed %}
+        {% endblock %}
     </body>
 </html>
