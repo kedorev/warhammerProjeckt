@@ -1,0 +1,34 @@
+        <th>
+            <td>
+                {{ model.name }}
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+            <td>
+                {{ model.toughness }}
+            </td>
+            <td>
+                 {{ model.wound }}
+            </td>
+            <td>
+                 {{ model.wound }}
+            </td>
+            <td>
+                {{ model.leadership }}
+            </td>
+            <td>
+                {{ model.save }}
+            </td>
+        </th>
+        <tr>
+            {% for weapon in model.weapons %}
+                {% include "@MainApp/Partial/_weapon.html.twig"  %}
+            {% endfor %}
+        </tr>

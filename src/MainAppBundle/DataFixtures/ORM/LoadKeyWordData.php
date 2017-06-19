@@ -33,7 +33,7 @@ class LoadKeyWordData extends AbstractFixture implements OrderedFixtureInterface
             $manager->persist($keyWord);
             $manager->flush();
 
-            $this->addReference('admin-user'.$index, $keyWord);
+            $this->addReference($keyWord->getName(), $keyWord);
         }
     }
 

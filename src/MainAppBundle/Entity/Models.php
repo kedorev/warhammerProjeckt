@@ -81,6 +81,7 @@ class Models
      */
     private $keysWord;
 
+
     /**
      * @var integer
      *
@@ -386,5 +387,16 @@ class Models
     public function getPoint()
     {
         return $this->point;
+    }
+
+
+    /**
+     * return how many profil is linked
+     *
+     * @return int
+     */
+    public function getNbProfil()
+    {
+        return count($this->profils);
     }
 }

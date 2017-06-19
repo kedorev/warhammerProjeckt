@@ -78,7 +78,12 @@ class Weapon
     private $price;
 
 
-
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="rule", type="text")
+     */
+    private $rule;
 
 
     /**
@@ -322,5 +327,29 @@ class Weapon
     public function getWeaponSwitch()
     {
         return $this->weaponSwitch;
+    }
+
+    /**
+     * Set rule
+     *
+     * @param string $rule
+     *
+     * @return Weapon
+     */
+    public function setRule($rule)
+    {
+        $this->rule = $rule;
+
+        return $this;
+    }
+
+    /**
+     * Get rule
+     *
+     * @return string
+     */
+    public function getRule()
+    {
+        return $this->rule;
     }
 }

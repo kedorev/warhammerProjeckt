@@ -2,20 +2,20 @@
 <html>
     <head>
     {% block header %}
-        {% embed "@MainApp/Default/header.html.twig" %}
+        {% embed "@MainApp/Partial/_header.html.twig" %}
         {% endembed %}
     {% endblock %}
     </head>
     <body>
         {% block navbar %}
-            {% embed "@MainApp/Default/navbar.html.twig" %}
+            {% embed "@MainApp/Partial/_navbar.html.twig" %}
             {% endembed %}
         {% endblock %}
         {% block body %}
 
         {% endblock %}
         {% block footer %}
-            {% embed "@MainApp/Default/footer.html.twig" %}
+            {% embed "@MainApp/Partial/_footer.html.twig" %}
             {% endembed %}
         {% endblock %}
     </body>

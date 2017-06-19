@@ -26,7 +26,7 @@ class LoadAbilitieData extends AbstractFixture implements OrderedFixtureInterfac
         $manager->persist($abilities);
         $manager->flush();
 
-        $this->addReference('admin-user', $abilities);
+        $this->addReference($abilities->getName(), $abilities);
     }
 
     public function getOrder()

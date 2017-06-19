@@ -46,4 +46,28 @@ class WeaponSwitch
     {
         return $this->id;
     }
+
+    /**
+     * Set model
+     *
+     * @param \MainAppBundle\Entity\Models $model
+     *
+     * @return WeaponSwitch
+     */
+    public function setModel(\MainAppBundle\Entity\Models $model = null)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * Get model
+     *
+     * @return \MainAppBundle\Entity\Models
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
 }

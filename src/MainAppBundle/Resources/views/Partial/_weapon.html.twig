@@ -1,0 +1,32 @@
+
+<table>
+
+    {% for weapon in weapons %}
+        <tr>
+           <td>
+               {{ weapon.name }}
+           </td>
+           <td>
+               {{ weapon.type }}
+           </td>
+           <td>
+               {{ weapon.reach }}
+           </td>
+           <td>
+               {{ weapon.reach }}
+           </td>
+           <td>
+               {{ weapon.strength }}
+           </td>
+           <td>
+               {{ weapon.armorPenetration }}
+           </td>
+           <td>
+               {{ weapon.dommage }}
+           </td>
+           <td>
+               {{ weapon.rule }}
+           </td>
+        </tr>
+    {% endfor %}
+</table>

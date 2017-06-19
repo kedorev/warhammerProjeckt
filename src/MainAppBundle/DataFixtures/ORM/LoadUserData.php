@@ -38,6 +38,7 @@ class LoadUserData
         $user->setEmail('admin@admin.com');
         $user->setPlainPassword('admin');
         $user->setEnabled(true);
+        $user->setUsername("admin");
         $user->addRole('ROLE_AS');
         $this->addReference('user-admin', $user);
         $userManager->updateUser($user);
