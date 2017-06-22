@@ -1,6 +1,29 @@
+<H3>Arme</H3>
 
-<table>
-
+<table class="table table-bordered" >
+    <tr>
+        <th>
+            nom
+        </th>
+        <th>
+            type
+        </th>
+        <th>
+            portée
+        </th>
+        <th>
+            force
+        </th>
+        <th>
+            AP
+        </th>
+        <th>
+            dommage
+        </th>
+        <th>
+            règles additionelles
+        </th>
+    </tr>
     {% for weapon in weapons %}
         <tr>
            <td>
@@ -8,9 +31,6 @@
            </td>
            <td>
                {{ weapon.type }}
-           </td>
-           <td>
-               {{ weapon.reach }}
            </td>
            <td>
                {{ weapon.reach }}

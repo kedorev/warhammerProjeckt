@@ -30,7 +30,17 @@ class LoadWeaponData extends AbstractFixture implements OrderedFixtureInterface
                 'type' => "tir rapide",
                 'price' => 0,
                 'rules' => ""
-            )
+            ),
+            '1' => array(
+                'name' => "Fusil a plasma",
+                'AP' => -1,
+                'dommage' => 1,
+                'reach' => 24,
+                'S' => 6,
+                'type' => "tir rapide",
+                'price' => 11,
+                'rules' => ""
+            ),
         );
 
         foreach($weapons as $weaponData)

@@ -31,7 +31,7 @@ class weaponList
     /**
      * @var array(Weapon)
      *
-     * @ORM\OneToMany(targetEntity="MainAppBundle\Entity\Weapon", mappedBy="weaponLists" )
+     * @ORM\ManyToMany(targetEntity="MainAppBundle\Entity\Weapon", mappedBy="weaponLists" )
      */
     private $weapons;
 

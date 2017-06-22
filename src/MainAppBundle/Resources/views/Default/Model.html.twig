@@ -3,41 +3,12 @@
 {% block title %}Model{% endblock %}
 
 {% block body %} Models load
-    <table class="table table-bordered">
-        <th>
-            <td>
-                Nom
-            </td>
-            <td>
-                Touche CaC
-            </td>
-            <td>
-                Touche Tir
-            </td>
-            <td>
-                Force
-            </td>
-            <td>
-                Endurance
-            </td>
-            <td>
-                PdV
-            </td>
-            <td>
-                Attaque
-            </td>
-            <td>
-                Commandement
-            </td>
-            <td>
-                Sauvegarde
-            </td>
-        </th>
+    {% dump models %}
++
         {% for model in models %}
 
-            <tr>
-                {% include '@MainApp/Partial/_model.html.twig' %}
-            </tr>
+            {% include '@MainApp/Partial/_model.html.twig' %}
+
         {% endfor %}
 
     </table>

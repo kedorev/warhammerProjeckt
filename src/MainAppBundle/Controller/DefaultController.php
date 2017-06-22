@@ -21,6 +21,7 @@ class DefaultController extends Controller
     {
         $repository = $this->getDoctrine()->getManager()->getRepository('MainAppBundle:Models');
         $models = $repository->findAll();
+        dump($models[0]->getWeapons());
 
         return $this->render('MainAppBundle:Default:Model.html.twig', array('models' => $models));
     }

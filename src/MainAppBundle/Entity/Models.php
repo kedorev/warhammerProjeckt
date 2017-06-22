@@ -62,6 +62,9 @@ class Models
 
     /**
      * @var Models
+     *
+     * @ORM\ManyToMany(targetEntity="MainAppBundle\Entity\Profil")
+     * @ORM\OrderBy({  }))
      */
     private $profils;
 
@@ -398,5 +401,62 @@ class Models
     public function getNbProfil()
     {
         return count($this->profils);
+    }
+
+
+    /**
+     * Add weapon
+     *
+     * @param \MainAppBundle\Entity\Weapon $weapon
+     *
+     * @return Models
+     */
+    public function addProfil(\MainAppBundle\Entity\Profil $profil)
+    {
+        $this->profils[] = $profil;
+
+        return $this;
+    }
+
+    /**
+     * Remove weapon
+     *
+     * @param \MainAppBundle\Entity\Weapon $weapon
+     */
+    public function removeProfil(\MainAppBundle\Entity\Profil $profil)
+    {
+        $this->profils->removeElement($profil);
+    }
+
+    /**
+     * Get weapons
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProfil()
+    {
+        return $this->profils;
+    }
+
+    /**
+     * Get profils
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProfils()
+    {
+        return $this->profils;
+    }
+
+    public function getProfilsByWound(integer $wound)
+    {
+        foreach($this->profils as $profil)
+        {
+            if($wound <= $profil->max_wound && $wound >= $profil->min_wound)
+            {
+                return $profil;
+            }
+        }
+        return false;
     }
 }

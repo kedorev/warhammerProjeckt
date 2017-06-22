@@ -50,6 +50,19 @@ class Profil
      */
     private $strength;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="min_wound", type="integer")
+     */
+    private $minWound;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="max_wound", type="integer")
+     */
+    private $maxWound;
 
     /**
      * @var int
@@ -186,5 +199,55 @@ class Profil
     public function getAttack()
     {
         return $this->attack;
+    }
+
+
+
+    /**
+     * Set minWound
+     *
+     * @param integer $minWound
+     *
+     * @return Profil
+     */
+    public function setMinWound($minWound)
+    {
+        $this->minWound = $minWound;
+
+        return $this;
+    }
+
+    /**
+     * Get minWound
+     *
+     * @return integer
+     */
+    public function getMinWound()
+    {
+        return $this->minWound;
+    }
+
+    /**
+     * Set maxWound
+     *
+     * @param integer $maxWound
+     *
+     * @return Profil
+     */
+    public function setMaxWound($maxWound)
+    {
+        $this->maxWound = $maxWound;
+
+        return $this;
+    }
+
+    /**
+     * Get maxWound
+     *
+     * @return integer
+     */
+    public function getMaxWound()
+    {
+        return $this->maxWound;
     }
 }
