@@ -64,6 +64,10 @@ class LoadModelsData extends AbstractFixture implements OrderedFixtureInterface
                 ),
                 'weapon' => array(
                     '0' => "Fusil a plasma",
+                ),
+                'keyword' => array(
+                    '0' => "Tau",
+                    '1' => "Vol",
                 )
             ),
         );

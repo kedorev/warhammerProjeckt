@@ -36,6 +36,12 @@ class Squad
      */
     private $models;
 
+    /**
+     * @var faction
+     *
+     * @ORM\ManyToOne(targetEntity="MainAppBundle\Entity\Faction", inversedBy="squad")
+     */
+    private $faction;
 
     /**
      * @var SquadType
@@ -139,5 +145,29 @@ class Squad
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set faction
+     *
+     * @param \MainAppBundle\Entity\Faction $faction
+     *
+     * @return Squad
+     */
+    public function setFaction(\MainAppBundle\Entity\Faction $faction = null)
+    {
+        $this->faction = $faction;
+
+        return $this;
+    }
+
+    /**
+     * Get faction
+     *
+     * @return \MainAppBundle\Entity\Faction
+     */
+    public function getFaction()
+    {
+        return $this->faction;
     }
 }

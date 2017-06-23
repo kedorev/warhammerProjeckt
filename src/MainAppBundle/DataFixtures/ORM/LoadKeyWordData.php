@@ -22,7 +22,15 @@ class LoadKeyWordData extends AbstractFixture implements OrderedFixtureInterface
         $index = 0;
         $keyWords = array(
             "Drone",
-            "Fly"
+            "Vol",
+            "Tau",
+            "Necron",
+            "Tyranide",
+            "Eldar",
+            "Eldar noir",
+            "Culte genestealer",
+            "Orc",
+
         );
 
         foreach($keyWords as $keyWordName)

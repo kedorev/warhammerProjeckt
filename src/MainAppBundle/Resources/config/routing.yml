@@ -6,6 +6,16 @@ main_app_model:
     path:     /Models
     defaults: { _controller: MainAppBundle:Default:Model }
 
+main_app_factions:
+    path:     /factions
+    defaults: { _controller: MainAppBundle:Default:factions }
+
+#Faction
+main_app_faction:
+    path:     /faction/{faction]
+    defaults: { _controller: MainAppBundle:Default:faction }
+
+
 main_app_login:
-    path:   /login_1
-    defaults: [_controller: MainAppBundle:User:login]
+    path:     /login_1
+    defaults: { _controller: MainAppBundle:User:login }

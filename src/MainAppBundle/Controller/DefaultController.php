@@ -26,4 +26,13 @@ class DefaultController extends Controller
         return $this->render('MainAppBundle:Default:Model.html.twig', array('models' => $models));
     }
 
+    public function factionsAction(Request $request)
+    {
+        return $this->render('MainAppBundle:Default:factions.html.twig');
+    }
+
+    public function factionAction(Request $request, $faction)
+    {
+
+    }
 }
