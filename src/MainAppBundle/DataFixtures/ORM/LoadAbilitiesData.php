@@ -19,14 +19,30 @@ class LoadAbilitieData extends AbstractFixture implements OrderedFixtureInterfac
 {
     public function load(ObjectManager $manager)
     {
-        $abilities = new Abilities();
-        $abilities->setName('Saviour Protocols');
-        $abilities->setDescription('If a drones unit within 3" of a friendly');
+        $abilitiesData = array(
+            '0' => array(
+                'name' => "Saviour Protocols",
+                'description' => 'If a drones unit within 3" of a friendly',
+            ),
+            '1' => array(
+                'name' => "Manta Strike",
+                'description' => 'placer la figurine a 9"+',
+            ),
 
-        $manager->persist($abilities);
-        $manager->flush();
+        );
 
-        $this->addReference($abilities->getName(), $abilities);
+
+        foreach($abilitiesData as $abilitieData)
+        {
+            $abilities = new Abilities();
+            $abilities->setName($abilitieData['name']);
+            $abilities->setDescription($abilitieData['description']);
+
+            $manager->persist($abilities);
+            $manager->flush();
+
+            $this->addReference($abilities->getName(), $abilities);
+        }
     }
 
     public function getOrder()

@@ -3,6 +3,7 @@
 namespace MainAppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Squad
@@ -21,6 +22,14 @@ class Squad
      */
     private $id;
 
+
+    /**
+     * @var ArrayCollection
+     *
+     *@ORM\OneToMany(targetEntity="MainAppBundle\Entity\squadRequirement", mappedBy="squad")
+     */
+    private $squadeRequirements;
+
     /**
      * @var string
      *
@@ -35,6 +44,22 @@ class Squad
      * @ORM\ManyToMany(targetEntity="MainAppBundle\Entity\Models")
      */
     private $models;
+
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="min", type="integer")
+     */
+    private $min;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="min", type="integer")
+     */
+    private $max;
+
 
     /**
      * @var faction
@@ -52,7 +77,8 @@ class Squad
     private $type;
 
     public function __construct() {
-        $this->models = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->models = new ArrayCollection();
+        $this->squadeRequirements = new ArrayCollection();
     }
 
     /**
@@ -169,5 +195,39 @@ class Squad
     public function getFaction()
     {
         return $this->faction;
+    }
+
+    /**
+     * Add squadeRequirement
+     *
+     * @param \MainAppBundle\Entity\squadRequirement $squadeRequirement
+     *
+     * @return Squad
+     */
+    public function addSquadeRequirement(\MainAppBundle\Entity\squadRequirement $squadeRequirement)
+    {
+        $this->squadeRequirements[] = $squadeRequirement;
+
+        return $this;
+    }
+
+    /**
+     * Remove squadeRequirement
+     *
+     * @param \MainAppBundle\Entity\squadRequirement $squadeRequirement
+     */
+    public function removeSquadeRequirement(\MainAppBundle\Entity\squadRequirement $squadeRequirement)
+    {
+        $this->squadeRequirements->removeElement($squadeRequirement);
+    }
+
+    /**
+     * Get squadeRequirements
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSquadeRequirements()
+    {
+        return $this->squadeRequirements;
     }
 }

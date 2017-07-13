@@ -2,6 +2,7 @@
 
 namespace MainAppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -64,10 +65,8 @@ class Models
      * @var Models
      *
      * @ORM\ManyToMany(targetEntity="MainAppBundle\Entity\Profil")
-     * @ORM\OrderBy({  }))
      */
     private $profils;
-
 
     /**
      * @var array(Abilities)
@@ -84,6 +83,12 @@ class Models
      */
     private $keysWord;
 
+    /**
+     * @var array(FactionKeyWord)
+     *
+     * @ORM\ManyToMany(targetEntity="MainAppBundle\Entity\Faction")
+     */
+    private $factionKeyWord;
 
     /**
      * @var integer
@@ -110,10 +115,10 @@ class Models
 
 
     public function __construct() {
-        $this->abilities = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->keysWord = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->weapons = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->profils = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->abilities = new ArrayCollection();
+        $this->keysWord = new ArrayCollection();
+        $this->weapons = new ArrayCollection();
+        $this->profils = new ArrayCollection();
     }
 
 
@@ -458,5 +463,50 @@ class Models
             }
         }
         return false;
+    }
+
+    /**
+     * Add factionKeyWord
+     *
+     * @param \MainAppBundle\Entity\Faction $factionKeyWord
+     *
+     * @return Models
+     */
+    public function addFactionKeyWord(\MainAppBundle\Entity\Faction $factionKeyWord)
+    {
+        $this->factionKeyWord[] = $factionKeyWord;
+
+        return $this;
+    }
+
+    /**
+     * Remove factionKeyWord
+     *
+     * @param \MainAppBundle\Entity\Faction $factionKeyWord
+     */
+    public function removeFactionKeyWord(\MainAppBundle\Entity\Faction $factionKeyWord)
+    {
+        $this->factionKeyWord->removeElement($factionKeyWord);
+    }
+
+    /**
+     * Get factionKeyWord
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFactionKeyWord()
+    {
+        return $this->factionKeyWord;
+    }
+
+
+    public function getKeyWordAsString(): string
+    {
+        $string = "";
+        foreach($this->keysWord as $keywords)
+        {
+            $string .= $keywords->getName();
+        }
+        return $string;
     }
 }

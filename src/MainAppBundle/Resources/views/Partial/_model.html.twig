@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-10">
+        <div class="model">
         <table class="table table-bordered row">
             <tr>
                 <th class="col-md-4">
@@ -66,8 +67,28 @@
 
         {% set weapons = model.weapons %}
         {% include "@MainApp/Partial/_weapon.html.twig"  %}
-        {% set keywords = model.keysWord %}
 
+        {% set abilities = model.abilities %}
+        <table class="table table-bordered row">
+           <th colspan="2"> <H3>Competence</H3></th>
+        {% for ability in abilities %}
+            <tr>
+                <td class="col-md-2">
+                    {{ ability.name }}
+                </td>
+                <td class="col-md-10">
+                    {{ ability.description }}
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+
+        {% set keywords = model.keysWord %}
+        <H3>Mots clefs</H3>
+        {% for keyword in keywords %}
+            {{ keyword.name }},
+        {% endfor %}
+    </div>
     </div>
     <div class="col-md-1"></div>
 </div>

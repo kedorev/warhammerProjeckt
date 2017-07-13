@@ -1,6 +1,6 @@
 main_app:
-    resource: "@MainAppBundle/Resources/config/routing.yml"
-    prefix:   /
+    resource: "@MainAppBundle/Controller"
+    type:  annotation
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"

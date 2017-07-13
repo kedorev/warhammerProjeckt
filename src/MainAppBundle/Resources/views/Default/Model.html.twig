@@ -2,9 +2,9 @@
 
 {% block title %}Model{% endblock %}
 
-{% block body %} Models load
+{% block body %}
     {% dump models %}
-+
+
         {% for model in models %}
 
             {% include '@MainApp/Partial/_model.html.twig' %}

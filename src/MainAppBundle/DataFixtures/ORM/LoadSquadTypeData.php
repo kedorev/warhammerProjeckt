@@ -2,39 +2,41 @@
 /**
  * Created by PhpStorm.
  * User: lerm
- * Date: 18/05/2017
- * Time: 11:42
+ * Date: 13/07/2017
+ * Time: 13:45
  */
 
-// src/AppBundle/DataFixtures/ORM/LoadUserData.php
+
 namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use MainAppBundle\Entity\KeyWord;
+use MainAppBundle\Entity\SquadType;
 
-class LoadKeyWordData extends AbstractFixture implements OrderedFixtureInterface
+class LoadSquadTypeData extends AbstractFixture implements OrderedFixtureInterface
 
 {
     public function load(ObjectManager $manager)
     {
-        $index = 0;
-        $keyWords = array(
-            "Drone",
-            "Vol",
-            "Battlesuit"
+        $modelsData = array(
+            "Elite",
+            'Attaque Rapide',
+            'QG',
+            'Soutient',
+            'Troupe'
         );
 
-        foreach($keyWords as $keyWordName)
-        {
-            $keyWord = new KeyWord();
-            $keyWord->setName($keyWordName);
 
-            $manager->persist($keyWord);
+        foreach($modelsData as $modelData)
+        {
+            $squadtype = new SquadType();
+            $squadtype->setName($modelData);
+
+            $manager->persist($squadtype);
             $manager->flush();
 
-            $this->addReference($keyWord->getName(), $keyWord);
+            $this->addReference($squadtype->getName(), $squadtype);
         }
     }
 

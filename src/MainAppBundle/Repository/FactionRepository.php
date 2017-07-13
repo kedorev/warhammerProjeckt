@@ -10,4 +10,37 @@ namespace MainAppBundle\Repository;
  */
 class FactionRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getAllSortByName()
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQueryBuilder();
+        $query->select('f');
+        $query->from("MainAppBundle:Faction",'f');
+        $query->orderBy("f.name");
+        return $query->getQuery()->getResult();
+    }
+
+    public function getAllType()
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQueryBuilder();
+        $query->select('f.type');
+        $query->from("MainAppBundle:Faction",'f');
+        $query->orderBy("f.type");
+        $query->distinct();
+        return $query->getQuery()->getResult();
+    }
+
+    public function getTypeFactionSortByName(string $type)
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQueryBuilder();
+        $query->select('f');
+        $query->from("MainAppBundle:Faction",'f');
+        $query->orderBy("f.name");
+        $query->where("f.type = :type");
+        $query->setParameter("type", $type);
+        return $query->getQuery()->getResult();
+    }
+
 }

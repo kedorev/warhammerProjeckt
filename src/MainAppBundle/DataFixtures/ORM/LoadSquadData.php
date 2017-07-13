@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: lerm
- * Date: 19/06/2017
- * Time: 10:38
+ * Date: 13/07/2017
+ * Time: 13:44
  */
 
 namespace AppBundle\DataFixtures\ORM;
@@ -11,16 +11,14 @@ namespace AppBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use MainAppBundle\Entity\Faction;
-use MainAppBundle\Entity\Models;
-use MainAppBundle\Entity\Profil;
+use MainAppBundle\Entity\Squad;
 
-class LoadModelsData extends AbstractFixture implements OrderedFixtureInterface
+class LoadSquadData extends AbstractFixture implements OrderedFixtureInterface
 
 {
     public function load(ObjectManager $manager)
     {
-        $modelsData = array(
+        /*$modelsData = array(
             "0" => array(
                 'Name' => "Striker team",
                 'Wound' => 1,
@@ -119,58 +117,32 @@ class LoadModelsData extends AbstractFixture implements OrderedFixtureInterface
                     '0' => 'Manta Strike',
                 ),
             ),
+        );*/
+
+        $squadsData = array(
+            '0' => array(
+                'name' => 'XV8 crisis',
+                'type' => 'Elite',
+                'requirement' => array(
+                    '0' => 'crisis_shashui_into_crisis',
+                    '1' => 'crisis_shavre_into_crisis',
+                ),
+
+            )
         );
 
 
-        foreach($modelsData as $modelData)
+        foreach($squadsData as $squadData)
         {
-            $model = new Models();
-            $model->setName($modelData['Name']);
-            $model->setWound($modelData['Wound']);
-            $model->setSave($modelData['Save']);
-            $model->setPoint($modelData['Point']);
-            $model->setToughness($modelData['Toughness']);
-            $model->setLeadership($modelData['Ld']);
-            $model->setPower($modelData['PP']);
-            $profilsData = $modelData['profil'];
-            foreach($profilsData as $profilData)
-            {
-                $profil = new Profil();
-                $profil->setAttack($profilData['A']);
-                $profil->setBS($profilData['CC']);
-                $profil->setMinWound($profilData['min']);
-                $profil->setMaxWound($profilData['max']);
-                $profil->setMove($profilData['M']);
-                $profil->setWS($profilData['CT']);
-                $profil->setStrength($profilData['F']);
-                $model->addProfil($profil);
-                $manager->persist($profil);
-            }
-            $factionKeywords = $modelData['faction'];
-            foreach($factionKeywords as $faction)
-            {
-                $model->addFactionKeyWord($this->getReference($faction));
-            }
-            $Keywords = $modelData['keyword'];
-            foreach($Keywords as $keyword)
-            {
-                $model->addKeysWord($this->getReference($keyword));
-            }
-            $Abilities = $modelData['abilities'];
-            foreach($Abilities as $ability)
-            {
-                $model->addAbility($this->getReference($ability));
-            }
+            $squad = new Squad();
+            $squad->setName($squadData['name']);
+            $squad->setType($squadData['type']);
 
 
-            foreach($modelData['weapon'] as $weapon)
-            {
-                $model->addWeapon($this->getReference($weapon));
-            }
-            $manager->persist($model);
+            $manager->persist($squad);
             $manager->flush();
 
-            $this->addReference($model->getName(), $model);
+            $this->addReference($squad->getName(), $squad);
         }
     }
 

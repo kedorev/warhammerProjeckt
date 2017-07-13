@@ -2,6 +2,7 @@
 
 namespace MainAppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,6 +29,12 @@ class Faction
      */
     private $name;
 
+    /**
+     * @var
+     *
+     * @ORM\Column(name="type", type="string", length=64)
+     */
+    private $type;
 
     /**
      * @var squad
@@ -35,6 +42,12 @@ class Faction
      */
     private $squad;
 
+    /**
+     * @var Models
+     *
+     * @ORM\ManyToMany(targetEntity="MainAppBundle\Entity\Models")
+     */
+    private $models;
 
     /**
      * Get id
@@ -53,7 +66,7 @@ class Faction
      *
      * @return Faction
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -65,7 +78,7 @@ class Faction
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -106,8 +119,66 @@ class Faction
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSquad()
+    public function getSquad(): ArrayCollection
     {
         return $this->squad;
+    }
+
+    /**
+     * Add model
+     *
+     * @param \MainAppBundle\Entity\Models $model
+     *
+     * @return Faction
+     */
+    public function addModel(\MainAppBundle\Entity\Models $model)
+    {
+        $this->models[] = $model;
+
+        return $this;
+    }
+
+    /**
+     * Remove model
+     *
+     * @param \MainAppBundle\Entity\Models $model
+     */
+    public function removeModel(\MainAppBundle\Entity\Models $model)
+    {
+        $this->models->removeElement($model);
+    }
+
+    /**
+     * Get models
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getModels()
+    {
+        return $this->models;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return Faction
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }
