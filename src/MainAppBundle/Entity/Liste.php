@@ -22,6 +22,12 @@ class Liste
      */
     private $id;
 
+    /**.
+     * @var int
+     *
+     * @ORM\Column(name="point", type="integer")
+     */
+    private $point;
 
     /**
      * @var string
@@ -39,11 +45,11 @@ class Liste
 
 
     /**
-     * @var Squad
+     * @var array
      *
-     * @ORM\ManyToMany(targetEntity="MainAppBundle\Entity\Squad")
+     * @ORM\OneToMany(targetEntity="MainAppBundle\Entity\SquadsEntity", mappedBy="list")
      */
-    private $Squads;
+    private $SquadsEntity;
 
 
     /**
@@ -51,7 +57,7 @@ class Liste
      */
     public function __construct()
     {
-        $this->Squads = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->SquadsEntity = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
@@ -113,37 +119,57 @@ class Liste
         return $this->owner;
     }
 
+
+
     /**
-     * Add squad
+     * Add squadsEntity
      *
-     * @param \MainAppBundle\Entity\Squad $squad
+     * @param \MainAppBundle\Entity\SquadsEntity $squadsEntity
      *
      * @return Liste
      */
-    public function addSquad(\MainAppBundle\Entity\Squad $squad)
+    public function addSquadsEntity(\MainAppBundle\Entity\SquadsEntity $squadsEntity)
     {
-        $this->Squads[] = $squad;
+        $this->SquadsEntity[] = $squadsEntity;
 
         return $this;
     }
 
     /**
-     * Remove squad
+     * Remove squadsEntity
      *
-     * @param \MainAppBundle\Entity\Squad $squad
+     * @param \MainAppBundle\Entity\SquadsEntity $squadsEntity
      */
-    public function removeSquad(\MainAppBundle\Entity\Squad $squad)
+    public function removeSquadsEntity(\MainAppBundle\Entity\SquadsEntity $squadsEntity)
     {
-        $this->Squads->removeElement($squad);
+        $this->SquadsEntity->removeElement($squadsEntity);
     }
 
     /**
-     * Get squads
+     * Get squadsEntity
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSquads()
+    public function getSquadsEntity()
     {
-        return $this->Squads;
+        return $this->SquadsEntity;
     }
+
+    /**
+     * @return int
+     */
+    public function getPoint()
+    {
+        return $this->point;
+    }
+
+    /**
+     * @param int $point
+     */
+    public function setPoint($point)
+    {
+        $this->point = $point;
+    }
+
+
 }

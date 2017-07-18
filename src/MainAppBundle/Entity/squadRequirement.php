@@ -3,6 +3,7 @@
 namespace MainAppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Tests\Model;
 
 /**
  * squadRequirement
@@ -31,7 +32,7 @@ class squadRequirement
     /**
      * @var Squad
      *
-     * @ORM\ManyToOne(targetEntity="MainAppBundle\Entity\Squad", inversedBy="squadeRequirements")
+     * @ORM\ManyToOne(targetEntity="MainAppBundle\Entity\Squad", inversedBy="squadRequirements")
      */
     private $squad;
 
@@ -53,7 +54,7 @@ class squadRequirement
     /**
      * @var Models
      *
-     * @ORM\ManyToMany(targetEntity="MainAppBundle\Entity\Models")
+     * @ORM\ManyToOne(targetEntity="MainAppBundle\Entity\Models")
      */
     private $model;
 
@@ -120,39 +121,15 @@ class squadRequirement
      */
     public function __construct()
     {
-        $this->model = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Add model
-     *
-     * @param \MainAppBundle\Entity\Models $model
-     *
-     * @return squadRequirement
-     */
-    public function addModel(\MainAppBundle\Entity\Models $model)
-    {
-        $this->model[] = $model;
-
-        return $this;
-    }
-
-    /**
-     * Remove model
-     *
-     * @param \MainAppBundle\Entity\Models $model
-     */
-    public function removeModel(\MainAppBundle\Entity\Models $model)
-    {
-        $this->model->removeElement($model);
-    }
 
     /**
      * Get model
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \MainAppBundle\Entity\Models
      */
-    public function getModel()
+    public function getModel(): Models
     {
         return $this->model;
     }
@@ -176,7 +153,7 @@ class squadRequirement
      *
      * @return string
      */
-    public function getName()
+    public function getName(): String
     {
         return $this->name;
     }
@@ -200,8 +177,22 @@ class squadRequirement
      *
      * @return \MainAppBundle\Entity\Squad
      */
-    public function getSquad()
+    public function getSquad(): Squad
     {
         return $this->squad;
+    }
+
+    /**
+     * Set model
+     *
+     * @param \MainAppBundle\Entity\Models $model
+     *
+     * @return squadRequirement
+     */
+    public function setModel(\MainAppBundle\Entity\Models $model = null)
+    {
+        $this->model = $model;
+
+        return $this;
     }
 }

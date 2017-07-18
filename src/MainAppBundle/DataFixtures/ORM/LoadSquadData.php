@@ -127,7 +127,8 @@ class LoadSquadData extends AbstractFixture implements OrderedFixtureInterface
                     '0' => 'crisis_shashui_into_crisis',
                     '1' => 'crisis_shavre_into_crisis',
                 ),
-
+                'min' => '3',
+                'max' => '9',
             )
         );
 
@@ -136,8 +137,9 @@ class LoadSquadData extends AbstractFixture implements OrderedFixtureInterface
         {
             $squad = new Squad();
             $squad->setName($squadData['name']);
-            $squad->setType($squadData['type']);
-
+            $squad->setType($this->getReference($squadData['type']));
+            $squad->setMin($squadData['min']);
+            $squad->setMax($squadData['max']);
 
             $manager->persist($squad);
             $manager->flush();
@@ -150,6 +152,6 @@ class LoadSquadData extends AbstractFixture implements OrderedFixtureInterface
     {
         // the order in which fixtures will be loaded
         // the lower the number, the sooner that this fixture is loaded
-        return 10;
+        return 15;
     }
 }

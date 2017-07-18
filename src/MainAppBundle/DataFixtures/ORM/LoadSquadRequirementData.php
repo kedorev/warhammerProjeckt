@@ -23,28 +23,31 @@ class LoadSquadRequirementData extends AbstractFixture implements OrderedFixture
                 'name' => 'crisis_shashui_into_crisis',
                 'min' => '3',
                 'max' => '9',
-
+                'model' => 'Crisis sha\'shui',
+                'squad' => 'XV8 crisis',
             ),
             "1" => array(
                 'name' => 'crisis_shavre_into_crisis',
                 'min' => '0',
                 'max' => '1',
-
+                'model' => "Crisis sha'vre",
+                'squad' => 'XV8 crisis',
             ),
         );
 
 
         foreach ($squadRequirementsDatas as $squadRequirementsData) {
-            $squadtype = new squadRequirement();
-            $squadtype->setMin($squadRequirementsData['min']);
-            $squadtype->setMax($squadRequirementsData['max']);
-            $squadtype->setName($squadRequirementsData['name']);
+            $requirement = new squadRequirement();
+            $requirement->setMin($squadRequirementsData['min']);
+            $requirement->setMax($squadRequirementsData['max']);
+            $requirement->setName($squadRequirementsData['name']);
+            $requirement->setModel($this->getReference($squadRequirementsData['model']));
+            $requirement->setSquad($this->getReference($squadRequirementsData['squad']));
 
-
-            $manager->persist($squadtype);
+            $manager->persist($requirement);
             $manager->flush();
 
-            $this->addReference($squadtype->getName(), $squadtype);
+            $this->addReference($requirement->getName(), $requirement);
         }
     }
 
@@ -52,6 +55,6 @@ class LoadSquadRequirementData extends AbstractFixture implements OrderedFixture
     {
         // the order in which fixtures will be loaded
         // the lower the number, the sooner that this fixture is loaded
-        return 15;
+        return 20;
     }
 }

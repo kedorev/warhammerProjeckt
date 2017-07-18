@@ -22,12 +22,12 @@ class LoadModelsData extends AbstractFixture implements OrderedFixtureInterface
     {
         $modelsData = array(
             "0" => array(
-                'Name' => "Striker team",
+                'Name' => "Fire warrior",
                 'Wound' => 1,
                 'Save' => 4,
                 'Point' => 8,
                 'Toughness' => 3,
-                'Ld' => 7,
+                'Ld' => 6,
                 'PP' => 4,
                 'profil' => array(
                     '0' => array(
@@ -52,8 +52,39 @@ class LoadModelsData extends AbstractFixture implements OrderedFixtureInterface
                 'abilities' => array(
 
                 ),
+            ), "1" => array(
+                'Name' => "Fire warrior sha'shui",
+                'Wound' => 1,
+                'Save' => 4,
+                'Point' => 8,
+                'Toughness' => 3,
+                'Ld' => 7,
+                'PP' => 4,
+                'profil' => array(
+                    '0' => array(
+                        'CC' => 5,
+                        'CT' => 4,
+                        'F' => 3,
+                        'A' => 2,
+                        'M' => 6,
+                        'min' => 1,
+                        'max' => 1,
+                    ),
+                ),
+                'weapon' => array(
+                    '0' => "Fusil a impulsion",
+                ),
+                'keyword' => array(
+
+                ),
+                'faction' => array(
+                    '0' => 'Tau',
+                ),
+                'abilities' => array(
+
+                ),
             ),
-            "1" => array(
+            "2" => array(
                 'Name' => "Crisis sha'shui",
                 'Wound' => 3,
                 'Save' => 3,
@@ -86,7 +117,7 @@ class LoadModelsData extends AbstractFixture implements OrderedFixtureInterface
                     '0' => 'Manta Strike',
                 ),
             ),
-            "2" => array(
+            "3" => array(
                 'Name' => "Crisis sha'vre",
                 'Wound' => 3,
                 'Save' => 3,

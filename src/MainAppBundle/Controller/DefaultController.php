@@ -2,13 +2,20 @@
 
 namespace MainAppBundle\Controller;
 
+use Doctrine\DBAL\Types\IntegerType;
+use MainAppBundle\Entity\Liste;
+use MainAppBundle\Form\ListType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
 use MainAppBundle\Entity\Models;
-use MainAppBundle\Entity\CONSTANT;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
 class DefaultController extends Controller
@@ -71,4 +78,39 @@ class DefaultController extends Controller
 
         return $this->render('@MainApp/Default/Model.html.twig', array('models' => $models));
     }
+
+    /**
+     * @Route("/squads", name="main_app_squad")
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function squadAction(Request $request)
+    {
+        $repository = $this->getDoctrine()->getManager()->getRepository('MainAppBundle:Squad');
+        $squads = $repository->findAll();
+        foreach($squads['0']->getSquadRequirements() as $requirement)
+        {
+            dump($requirement);
+        }
+        return $this->render('@MainApp/Default/squad.html.twig', array('squads' => $squads));
+    }
+
+    /**
+     * @Route("/list", name="main_app_list")
+     */
+    public function listAction(Request $request)
+    {
+        // On crée le FormBuilder grâce au service form factory
+        $list = new Liste();
+        $form = $this->get('form.factory')->createBuilder(ListType::class, $list);
+
+        // On passe la méthode createView() du formulaire à la vue
+        // afin qu'elle puisse afficher le formulaire toute seule
+        return $this->render('@MainApp/Default/list.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
+
+
 }

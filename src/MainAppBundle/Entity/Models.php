@@ -62,7 +62,7 @@ class Models
 
 
     /**
-     * @var Models
+     * @var array
      *
      * @ORM\ManyToMany(targetEntity="MainAppBundle\Entity\Profil")
      */
@@ -111,6 +111,12 @@ class Models
      * @ORM\ManyToMany(targetEntity="MainAppBundle\Entity\Weapon")
      */
     private $weapons;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="MainAppBundle\Entity\ModelEntity",mappedBy="modelTemplate")
+     */
+    private $ModelEntity;
 
 
 
@@ -453,7 +459,7 @@ class Models
         return $this->profils;
     }
 
-    public function getProfilsByWound(integer $wound)
+    public function getProfilsByWound(int $wound): Profil
     {
         foreach($this->profils as $profil)
         {
@@ -508,5 +514,39 @@ class Models
             $string .= $keywords->getName();
         }
         return $string;
+    }
+
+    /**
+     * Add modelEntity
+     *
+     * @param \MainAppBundle\Entity\ModelEntity $modelEntity
+     *
+     * @return Models
+     */
+    public function addModelEntity(\MainAppBundle\Entity\ModelEntity $modelEntity)
+    {
+        $this->ModelEntity[] = $modelEntity;
+
+        return $this;
+    }
+
+    /**
+     * Remove modelEntity
+     *
+     * @param \MainAppBundle\Entity\ModelEntity $modelEntity
+     */
+    public function removeModelEntity(\MainAppBundle\Entity\ModelEntity $modelEntity)
+    {
+        $this->ModelEntity->removeElement($modelEntity);
+    }
+
+    /**
+     * Get modelEntity
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getModelEntity()
+    {
+        return $this->ModelEntity;
     }
 }

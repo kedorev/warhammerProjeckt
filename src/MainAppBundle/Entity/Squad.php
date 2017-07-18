@@ -28,7 +28,7 @@ class Squad
      *
      *@ORM\OneToMany(targetEntity="MainAppBundle\Entity\squadRequirement", mappedBy="squad")
      */
-    private $squadeRequirements;
+    private $squadRequirements;
 
     /**
      * @var string
@@ -36,15 +36,6 @@ class Squad
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
-
-
-    /**
-     * @var array(Models)
-     *
-     * @ORM\ManyToMany(targetEntity="MainAppBundle\Entity\Models")
-     */
-    private $models;
-
 
     /**
      * @var int
@@ -56,7 +47,7 @@ class Squad
     /**
      * @var int
      *
-     * @ORM\Column(name="min", type="integer")
+     * @ORM\Column(name="max", type="integer")
      */
     private $max;
 
@@ -76,9 +67,15 @@ class Squad
      */
     private $type;
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="MainAppBundle\Entity\SquadsEntity",mappedBy="squadModel")
+     */
+    private $squadEntity;
+
+
     public function __construct() {
-        $this->models = new ArrayCollection();
-        $this->squadeRequirements = new ArrayCollection();
+        $this->squadRequirements = new ArrayCollection();
     }
 
     /**
@@ -115,39 +112,6 @@ class Squad
         return $this->name;
     }
 
-    /**
-     * Add model
-     *
-     * @param \MainAppBundle\Entity\Models $model
-     *
-     * @return Squad
-     */
-    public function addModel(\MainAppBundle\Entity\Models $model)
-    {
-        $this->models[] = $model;
-
-        return $this;
-    }
-
-    /**
-     * Remove model
-     *
-     * @param \MainAppBundle\Entity\Models $model
-     */
-    public function removeModel(\MainAppBundle\Entity\Models $model)
-    {
-        $this->models->removeElement($model);
-    }
-
-    /**
-     * Get models
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getModels()
-    {
-        return $this->models;
-    }
 
     /**
      * Set type
@@ -206,7 +170,7 @@ class Squad
      */
     public function addSquadeRequirement(\MainAppBundle\Entity\squadRequirement $squadeRequirement)
     {
-        $this->squadeRequirements[] = $squadeRequirement;
+        $this->squadRequirements[] = $squadeRequirement;
 
         return $this;
     }
@@ -218,7 +182,7 @@ class Squad
      */
     public function removeSquadeRequirement(\MainAppBundle\Entity\squadRequirement $squadeRequirement)
     {
-        $this->squadeRequirements->removeElement($squadeRequirement);
+        $this->squadRequirements->removeElement($squadeRequirement);
     }
 
     /**
@@ -226,8 +190,114 @@ class Squad
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSquadeRequirements()
+    public function getSquadRequirements()
     {
-        return $this->squadeRequirements;
+        return $this->squadRequirements;
+    }
+
+    /**
+     * Set min
+     *
+     * @param integer $min
+     *
+     * @return Squad
+     */
+    public function setMin($min)
+    {
+        $this->min = $min;
+
+        return $this;
+    }
+
+    /**
+     * Get min
+     *
+     * @return integer
+     */
+    public function getMin()
+    {
+        return $this->min;
+    }
+
+    /**
+     * Set max
+     *
+     * @param integer $max
+     *
+     * @return Squad
+     */
+    public function setMax($max)
+    {
+        $this->max = $max;
+
+        return $this;
+    }
+
+    /**
+     * Get max
+     *
+     * @return integer
+     */
+    public function getMax()
+    {
+        return $this->max;
+    }
+
+    /**
+     * Add squadRequirement
+     *
+     * @param \MainAppBundle\Entity\squadRequirement $squadRequirement
+     *
+     * @return Squad
+     */
+    public function addSquadRequirement(\MainAppBundle\Entity\squadRequirement $squadRequirement)
+    {
+        $this->squadRequirements[] = $squadRequirement;
+
+        return $this;
+    }
+
+    /**
+     * Remove squadRequirement
+     *
+     * @param \MainAppBundle\Entity\squadRequirement $squadRequirement
+     */
+    public function removeSquadRequirement(\MainAppBundle\Entity\squadRequirement $squadRequirement)
+    {
+        $this->squadRequirements->removeElement($squadRequirement);
+    }
+
+    /**
+     * Add squadEntity
+     *
+     * @param \MainAppBundle\Entity\SquadsEntity $squadEntity
+     *
+     * @return Squad
+     */
+    public function addSquadEntity(\MainAppBundle\Entity\SquadsEntity $squadEntity)
+    {
+        $this->squadEntity[] = $squadEntity;
+
+        return $this;
+    }
+
+    /**
+     * Remove squadEntity
+     *
+     * @param \MainAppBundle\Entity\SquadsEntity $squadEntity
+     */
+    public function removeSquadEntity(\MainAppBundle\Entity\SquadsEntity $squadEntity)
+    {
+        $this->squadEntity->removeElement($squadEntity);
+    }
+
+    /**
+     * Get squadEntity
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSquadEntity()
+    {
+        return $this->squadEntity;
     }
 }
