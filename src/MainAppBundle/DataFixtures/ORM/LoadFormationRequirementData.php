@@ -45,7 +45,7 @@ class LoadFormationRequirementData extends AbstractFixture implements OrderedFix
         {
             $formation = new FormationRequirement();
             $formation->setMax($FormationsRequirementData['max']);
-            $formation->setMax($FormationsRequirementData['min']);
+            $formation->setMin($FormationsRequirementData['min']);
             $formation->setFormation($this->getReference($FormationsRequirementData['formation']));
             $formation->setSquadType($this->getReference($FormationsRequirementData['type']));
 

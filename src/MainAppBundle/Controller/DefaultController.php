@@ -4,7 +4,7 @@ namespace MainAppBundle\Controller;
 
 use Doctrine\DBAL\Types\IntegerType;
 use MainAppBundle\Entity\Liste;
-use MainAppBundle\Form\ListType;
+use MainAppBundle\Form\ListeType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -103,7 +103,29 @@ class DefaultController extends Controller
     {
         // On crée le FormBuilder grâce au service form factory
         $list = new Liste();
-        $form = $this->get('form.factory')->createBuilder(ListType::class, $list);
+        $form = $this->get('form.factory')->createBuilder(ListeType::class, $list);
+
+
+        if ($request->isMethod('POST')) {
+            // On fait le lien Requête <-> Formulaire
+            // À partir de maintenant, la variable $advert contient les valeurs entrées dans le formulaire par le visiteur
+            $form->handleRequest($request);
+
+            // On vérifie que les valeurs entrées sont correctes
+            // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+            if ($form->isValid()) {
+                // On enregistre notre objet $advert dans la base de données, par exemple
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($list);
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+
+                // On redirige vers la page de visualisation de l'annonce nouvellement créée
+                return $this->redirectToRoute('');
+            }
+        }
+
 
         // On passe la méthode createView() du formulaire à la vue
         // afin qu'elle puisse afficher le formulaire toute seule
@@ -112,5 +134,17 @@ class DefaultController extends Controller
         ));
     }
 
+    /**
+     * @Route("/list/{id}",name="main_app_listShow")
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function listShowAction(Request $request, $id)
+    {
+        $repository = $this->getDoctrine()->getManager()->getRepository('MainAppBundle:Liste');
+        $list = $repository->find($id);
 
+        return $this->render('@MainApp/Default/listShow.html.twig', array('liste' => $list));
+    }
 }

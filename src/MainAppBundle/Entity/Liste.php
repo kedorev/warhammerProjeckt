@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * List
+ * Liste
  *
  * @ORM\Table(name="list")
  * @ORM\Entity(repositoryClass="MainAppBundle\Repository\ListRepository")
@@ -22,12 +22,12 @@ class Liste
      */
     private $id;
 
-    /**.
+    /**
      * @var int
      *
-     * @ORM\Column(name="point", type="integer")
+     * @ORM\Column(name="points_limit", type="integer")
      */
-    private $point;
+    private $pointsLimit;
 
     /**
      * @var string
@@ -57,7 +57,7 @@ class Liste
      */
     public function __construct()
     {
-        $this->SquadsEntity = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->SquadsEntity = new ArrayCollection();
     }
 
 
@@ -156,20 +156,26 @@ class Liste
     }
 
     /**
-     * @return int
+     * Set pointsLimit
+     *
+     * @param integer $pointsLimit
+     *
+     * @return Liste
      */
-    public function getPoint()
+    public function setPointsLimit($pointsLimit)
     {
-        return $this->point;
+        $this->pointsLimit = $pointsLimit;
+
+        return $this;
     }
 
     /**
-     * @param int $point
+     * Get pointsLimit
+     *
+     * @return integer
      */
-    public function setPoint($point)
+    public function getPointsLimit()
     {
-        $this->point = $point;
+        return $this->pointsLimit;
     }
-
-
 }

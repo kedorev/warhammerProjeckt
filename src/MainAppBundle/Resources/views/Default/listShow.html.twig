@@ -1,0 +1,16 @@
+{% extends "@MainApp/base.html.twig" %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            {% if liste == null %}
+                La liste demandee n'existe pas.
+            {% else %}
+                <h3>{{ liste.name }}</h3>
+                Points : {{ liste.pointsLimit }}
+            {% endif %}
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+{% endblock %}
