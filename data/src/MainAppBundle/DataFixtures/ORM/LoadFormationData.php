@@ -21,14 +21,22 @@ class LoadFormationData extends AbstractFixture implements OrderedFixtureInterfa
     public function load(ObjectManager $manager)
     {
         $modelsData = array(
-            "Brigade",
+            '0' => array(
+                'name' => "Brigade"
+            ),
+            '1' => array(
+                'name' => "Patrouille"
+            ),
+            '2' => array(
+                'name' => "Bataillon"
+            ),
         );
 
 
         foreach($modelsData as $modelData)
         {
             $formation = new Formation();
-            $formation->setName($modelData);
+            $formation->setName($modelData['name']);
 
             $manager->persist($formation);
             $manager->flush();

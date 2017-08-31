@@ -2,7 +2,6 @@
 
 namespace MainAppBundle\Controller;
 
-use Doctrine\DBAL\Types\IntegerType;
 use MainAppBundle\Entity\Liste;
 use MainAppBundle\Form\ListeType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -16,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 
 class DefaultController extends Controller
@@ -101,33 +101,33 @@ class DefaultController extends Controller
      */
     public function listAction(Request $request)
     {
-        // On crée le FormBuilder grâce au service form factory
+        // On crï¿½e le FormBuilder grï¿½ce au service form factory
         $list = new Liste();
-        $form = $this->get('form.factory')->createBuilder(ListeType::class, $list);
+        $form = $this->createFormBuilder($list)
+            ->add('pointsLimit', IntegerType::class )
+            ->add('name', TextType::class )
+            ->getForm();
 
+        dump($form->isSubmitted());
 
-        if ($request->isMethod('POST')) {
-            // On fait le lien Requête <-> Formulaire
-            // À partir de maintenant, la variable $advert contient les valeurs entrées dans le formulaire par le visiteur
-            $form->handleRequest($request);
+        if ($form->isSubmitted() ) {
+            // $form->getData() holds the submitted values
+            // but, the original `$task` variable has also been updated
+            $list = $form->getData();
 
-            // On vérifie que les valeurs entrées sont correctes
-            // (Nous verrons la validation des objets en détail dans le prochain chapitre)
-            if ($form->isValid()) {
-                // On enregistre notre objet $advert dans la base de données, par exemple
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($list);
-                $em->flush();
+            // ... perform some action, such as saving the task to the database
+            // for example, if Task is a Doctrine entity, save it!
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($list);
+            $em->flush();
 
-                $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
-
-                // On redirige vers la page de visualisation de l'annonce nouvellement créée
-                return $this->redirectToRoute('');
-            }
+            die;
+            $url = $this->generateUrl("main_app_listShow", array('id'=> $list.getId()));
+            return $this->redirectToRoute($url);
         }
 
 
-        // On passe la méthode createView() du formulaire à la vue
+        // On passe la mï¿½thode createView() du formulaire ï¿½ la vue
         // afin qu'elle puisse afficher le formulaire toute seule
         return $this->render('@MainApp/Default/list.html.twig', array(
             'form' => $form->createView(),

@@ -23,6 +23,10 @@ class LoadListeData extends AbstractFixture implements OrderedFixtureInterface
             '0' => array(
                 "name" => "Tau test",
                 "points" => "1500",
+                "formation" => array(
+                    '0' => 'PatrouilleA',
+                )
+
             ),
         );
 
@@ -31,6 +35,10 @@ class LoadListeData extends AbstractFixture implements OrderedFixtureInterface
             $liste = new Liste();
             $liste->setName($factionData["name"]);
             $liste->setPointsLimit($factionData["points"]);
+            foreach ($factionData["formation"] as $formationEntity )
+            {
+                $liste->addFormationsListe($this->getReference($formationEntity));
+            }
 
             $manager->persist($liste);
             $manager->flush();
@@ -43,6 +51,6 @@ class LoadListeData extends AbstractFixture implements OrderedFixtureInterface
     {
         // the order in which fixtures will be loaded
         // the lower the number, the sooner that this fixture is loaded
-        return 1;
+        return 30;
     }
 }

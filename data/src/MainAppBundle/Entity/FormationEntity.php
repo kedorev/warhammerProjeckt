@@ -24,7 +24,7 @@ class FormationEntity
 
     /**
      * @var Liste
-     * @ORM\ManyToOne(targetEntity="MainAppBundle\Entity\Liste")
+     * @ORM\ManyToOne(targetEntity="MainAppBundle\Entity\Liste", inversedBy="formationsListe")
      */
     private $list;
 
@@ -32,10 +32,19 @@ class FormationEntity
     /**
      * @var array
      *
-     * @ORM\OneToMany(targetEntity="MainAppBundle\Entity\SquadsEntity", mappedBy="list")
+     * @ORM\OneToMany(targetEntity="MainAppBundle\Entity\SquadsEntity", mappedBy="formation")
      */
     private $SquadsEntity;
 
+
+
+    /**
+     * @var Models
+     *
+     * @ORM\ManyToOne(targetEntity="MainAppBundle\Entity\Formation", inversedBy="formationEntities")
+     * @ORM\JoinColumn(name="formationTemplateId")
+     */
+    private $formationModel;
 
     /**
      * Get id
@@ -110,5 +119,29 @@ class FormationEntity
     public function getSquadsEntity()
     {
         return $this->SquadsEntity;
+    }
+
+    /**
+     * Set formationModel
+     *
+     * @param \MainAppBundle\Entity\Formation $formationModel
+     *
+     * @return FormationEntity
+     */
+    public function setFormationModel(\MainAppBundle\Entity\Formation $formationModel = null)
+    {
+        $this->formationModel = $formationModel;
+
+        return $this;
+    }
+
+    /**
+     * Get formationModel
+     *
+     * @return \MainAppBundle\Entity\Formation
+     */
+    public function getFormationModel()
+    {
+        return $this->formationModel;
     }
 }

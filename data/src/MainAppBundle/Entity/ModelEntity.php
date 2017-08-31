@@ -31,6 +31,13 @@ class ModelEntity
     private $modelTemplate;
 
 
+    /**
+     * @var SquadsEntity
+     *
+     * @ORM\ManyToOne(targetEntity="MainAppBundle\Entity\SquadsEntity",inversedBy="ModelsEntity")
+     */
+    private $squadEntity;
+
 
     /**
      * Get id
@@ -65,4 +72,23 @@ class ModelEntity
     {
         return $this->modelTemplate;
     }
+
+    /**
+     * @return Liste
+     */
+    public function getSquadEntity()
+    {
+        return $this->squadEntity;
+    }
+
+    /**
+     * @param Liste $squadEntity
+     */
+    public function setSquadEntity($squadEntity)
+    {
+        $this->squadEntity = $squadEntity;
+    }
+
+
+
 }

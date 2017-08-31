@@ -3,6 +3,7 @@
 namespace MainAppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,6 +27,8 @@ class Liste
      * @var int
      *
      * @ORM\Column(name="points_limit", type="integer")
+     * @Assert\NotBlank()
+     * @Assert\Type("Symfony\Component\Form\Extension\Core\Type\IntegerType")
      */
     private $pointsLimit;
 
@@ -33,6 +36,8 @@ class Liste
      * @var string
      *
      * @ORM\Column(name="name", type="string")
+     * @Assert\NotBlank()
+     * @Assert\Type("\String")
      */
     private $name;
 
@@ -47,9 +52,9 @@ class Liste
     /**
      * @var array
      *
-     * @ORM\OneToMany(targetEntity="MainAppBundle\Entity\SquadsEntity", mappedBy="list")
+     * @ORM\OneToMany(targetEntity="MainAppBundle\Entity\FormationEntity", mappedBy="list")
      */
-    private $SquadsEntity;
+    private $formationsListe;
 
 
     /**
@@ -177,5 +182,39 @@ class Liste
     public function getPointsLimit()
     {
         return $this->pointsLimit;
+    }
+
+    /**
+     * Add formationsListe
+     *
+     * @param \MainAppBundle\Entity\FormationEntity $formationsListe
+     *
+     * @return Liste
+     */
+    public function addFormationsListe(\MainAppBundle\Entity\FormationEntity $formationsListe)
+    {
+        $this->formationsListe[] = $formationsListe;
+
+        return $this;
+    }
+
+    /**
+     * Remove formationsListe
+     *
+     * @param \MainAppBundle\Entity\FormationEntity $formationsListe
+     */
+    public function removeFormationsListe(\MainAppBundle\Entity\FormationEntity $formationsListe)
+    {
+        $this->formationsListe->removeElement($formationsListe);
+    }
+
+    /**
+     * Get formationsListe
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFormationsListe()
+    {
+        return $this->formationsListe;
     }
 }

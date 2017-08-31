@@ -29,12 +29,22 @@ class Formation
     private $name;
 
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="MainAppBundle\Entity\FormationEntity",mappedBy="formationModel")
+     */
+    private $formationEntities;
+
     /**
      *
      *
      * @ORM\OneToMany(targetEntity="MainAppBundle\Entity\FormationRequirement", mappedBy="formation")
      */
     private $formationRequirements;
+
+
+
+
 
     /**
      * Get id
@@ -109,5 +119,39 @@ class Formation
     public function getFormationRequirements()
     {
         return $this->formationRequirements;
+    }
+
+    /**
+     * Add formationEntity
+     *
+     * @param \MainAppBundle\Entity\FormationEntity $formationEntity
+     *
+     * @return Formation
+     */
+    public function addFormationEntity(\MainAppBundle\Entity\FormationEntity $formationEntity)
+    {
+        $this->formationEntities[] = $formationEntity;
+
+        return $this;
+    }
+
+    /**
+     * Remove formationEntity
+     *
+     * @param \MainAppBundle\Entity\FormationEntity $formationEntity
+     */
+    public function removeFormationEntity(\MainAppBundle\Entity\FormationEntity $formationEntity)
+    {
+        $this->formationEntities->removeElement($formationEntity);
+    }
+
+    /**
+     * Get formationEntities
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFormationEntities()
+    {
+        return $this->formationEntities;
     }
 }
