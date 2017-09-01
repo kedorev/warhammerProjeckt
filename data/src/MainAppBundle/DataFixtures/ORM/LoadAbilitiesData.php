@@ -14,7 +14,7 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use MainAppBundle\Entity\Abilities;
 
-class LoadAbilitieData extends AbstractFixture implements OrderedFixtureInterface
+class LoadAbilitiesData extends AbstractFixture implements OrderedFixtureInterface
 
 {
     public function load(ObjectManager $manager)

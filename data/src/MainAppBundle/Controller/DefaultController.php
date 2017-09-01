@@ -103,14 +103,17 @@ class DefaultController extends Controller
     {
         // On cr�e le FormBuilder gr�ce au service form factory
         $list = new Liste();
-        $form = $this->createFormBuilder($list)
+ /*       $form = $this->createFormBuilder($list)
             ->add('pointsLimit', IntegerType::class )
             ->add('name', TextType::class )
-            ->getForm();
+            ->add('save', SubmitType::class, array('label' => 'Create list'))
+            ->getForm();*/
 
-        dump($form->isSubmitted());
+        $form = $this->createForm(ListeType::class, $list);
 
-        if ($form->isSubmitted() ) {
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
             // $form->getData() holds the submitted values
             // but, the original `$task` variable has also been updated
             $list = $form->getData();
@@ -120,10 +123,11 @@ class DefaultController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($list);
             $em->flush();
+//            $url = $this->get('router')->generate('main_app_listShow', array('id'=> $list->getId()));
 
-            die;
-            $url = $this->generateUrl("main_app_listShow", array('id'=> $list.getId()));
-            return $this->redirectToRoute($url);
+            return $this->redirectToRoute('main_app_listShow', [
+                'id' => $list->getId(),
+            ]);
         }
 
 
