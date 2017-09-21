@@ -64,7 +64,7 @@ class SquadsEntityController extends Controller
     /**
      * Finds and displays a squadsEntity entity.
      *
-     * @Route("/{id}", name="squadsentity_show")
+     * @Route("/squadEntity/{id}", name="squadsentity_show")
      * @Method("GET")
      */
     public function showAction(SquadsEntity $squadsEntity)
@@ -80,7 +80,7 @@ class SquadsEntityController extends Controller
     /**
      * Displays a form to edit an existing squadsEntity entity.
      *
-     * @Route("/{id}/edit", name="squadsentity_edit")
+     * @Route("/squadEntity/{id}/edit", name="squadsentity_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, SquadsEntity $squadsEntity)
@@ -105,7 +105,7 @@ class SquadsEntityController extends Controller
     /**
      * Deletes a squadsEntity entity.
      *
-     * @Route("/{id}", name="squadsentity_delete")
+     * @Route("/squadEntity/{id}", name="squadsentity_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, SquadsEntity $squadsEntity)

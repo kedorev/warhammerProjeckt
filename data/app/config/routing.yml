@@ -1,3 +1,7 @@
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
 main_app_squads_entity:
     resource: "@MainAppBundle/Controller/SquadsEntityController.php"
     type:     annotation
@@ -9,6 +13,3 @@ main_app_formation_entity:
 main_app:
     resource: "@MainAppBundle/Controller"
     type:  annotation
-
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
