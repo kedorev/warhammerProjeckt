@@ -2,10 +2,15 @@
 
 namespace MainAppBundle\Controller;
 
+use MainAppBundle\Entity\Formation;
+use MainAppBundle\Entity\FormationEntity;
 use MainAppBundle\Entity\Liste;
 use MainAppBundle\Form\ListeType;
+use MainAppBundle\Form\FormationEntityTypeOld;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
 use MainAppBundle\Entity\Models;
@@ -16,6 +21,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Translation\MessageSelector;
+use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\Loader\YamlFileLoader;
 
 
 class DefaultController extends Controller
@@ -96,30 +104,28 @@ class DefaultController extends Controller
         return $this->render('@MainApp/Default/squad.html.twig', array('squads' => $squads));
     }
 
+
+
     /**
      * @Route("/list", name="main_app_list")
      */
     public function listAction(Request $request)
     {
-        // On cr�e le FormBuilder gr�ce au service form factory
+        $user = $this->getUser();
+        if(!isset($user))
+        {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
         $list = new Liste();
- /*       $form = $this->createFormBuilder($list)
-            ->add('pointsLimit', IntegerType::class )
-            ->add('name', TextType::class )
-            ->add('save', SubmitType::class, array('label' => 'Create list'))
-            ->getForm();*/
 
         $form = $this->createForm(ListeType::class, $list);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
             $list = $form->getData();
 
-            // ... perform some action, such as saving the task to the database
-            // for example, if Task is a Doctrine entity, save it!
             $em = $this->getDoctrine()->getManager();
             $em->persist($list);
             $em->flush();
@@ -139,16 +145,66 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/list/{id}",name="main_app_listShow")
+     * @Route("/list/{id}",name="main_app_listShow", requirements={"id": "\d+"})
      *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function listShowAction(Request $request, $id)
     {
+        $user = $this->getUser();
+        if(!isset($user))
+        {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
         $repository = $this->getDoctrine()->getManager()->getRepository('MainAppBundle:Liste');
         $list = $repository->find($id);
 
         return $this->render('@MainApp/Default/listShow.html.twig', array('liste' => $list));
+    }
+
+
+
+
+
+
+    /**
+     * @param Request $request
+     */
+    public function addFormation(Request $request, $id)
+    {
+        $user = $this->getUser();
+        if(!isset($user))
+        {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
+        $formation = new FormationEntity();
+        $form = $this->createForm(FormationEntityTypeOld::class, $formation, ['entity_manager' => $this->getDoctrine()->getManager()]);
+        dump($form);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $formation = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $formation->setList($em->getRepository(Liste::class)->find($id));
+            $em->persist($formation);
+            $em->flush();
+
+
+            return $this->redirectToRoute('main_app_listShow',  array('id' => $id));
+        }
+
+
+        return $this->render('@MainApp/Default/formationEntity.html.twig', array(
+            'form' => $form->createView(),
+        ));
+
+
+/*        return $this->render('@MainApp/Default/formationEntity.html.twig', array(
+            'form' => $form->createView(),
+        ));*/
     }
 }

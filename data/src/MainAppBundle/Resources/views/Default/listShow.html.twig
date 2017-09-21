@@ -11,21 +11,33 @@
                 <h3>{{ liste.name }}</h3>
                 Points : {{ liste.pointsLimit }}
                 <div class="panel-group" id="accordion">
+                    {% set formationNum = 1 %}
                     {% for formation in liste.formationsListe %}
                         <div class="panel panel-default">
-                            <div class="panel-heading">
+                            <div class="panel-heading collapse-focus" data-focus="{{ formationNum }}">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                                        Collapsible Group 1</a>
+                                        {{ formation.formationModel.name }}
+                                    </a>
+                                    <span id="resizeF{{formationNum}}" class="glyphicon glyphicon-resize-full"></span>
                                 </h4>
                             </div>
-                            <div id="collapse1" class="panel-collapse collapse in">
-                                <div class="panel-body">
-                                    Squad informations
+                            <div id="collapseF{{ formationNum }}" class="panel-collapse collapse in" style="display: none;">
+                                <div class="panel-body row">
+                                    {% for squadEntity in formation.SquadsEntity %}
+                                        <div class="col-lg-12 col-md-12">
+                                            {{ squadEntity.squadModel.name }}
+                                        </div>
+                                    {% endfor %}
+                                    <div class="col-lg-12 col-md-12">
+                                        <a href="/list/{{ liste.id }}/addSquadEntity/{{ formation.id }}">add squad</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        {% set formationNum = formationNum +1 %}
                     {% endfor %}
+                    <!--
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
@@ -52,6 +64,13 @@
                                 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
                                 minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
                                 commodo consequat.</div>
+                        </div>-->
+                        <div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading addFormation">
+                                    Add formation <span class="glyphicon glyphicon-plus glyphiconBigger"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

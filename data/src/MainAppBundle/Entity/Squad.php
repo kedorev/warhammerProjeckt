@@ -300,4 +300,9 @@ class Squad
     {
         return $this->squadEntity;
     }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

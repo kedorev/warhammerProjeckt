@@ -38,6 +38,8 @@ class AppKernel extends Kernel
             $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
             $bundles[] = new Nelmio\Alice\Bridge\Symfony\NelmioAliceBundle();
 
+            $bundles[] = new Symfony\Bundle\WebServerBundle\WebServerBundle();
+
         }
 
         return $bundles;

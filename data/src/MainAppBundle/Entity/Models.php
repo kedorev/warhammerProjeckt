@@ -549,4 +549,9 @@ class Models
     {
         return $this->ModelEntity;
     }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

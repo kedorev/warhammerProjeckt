@@ -28,7 +28,8 @@ class Liste
      *
      * @ORM\Column(name="points_limit", type="integer")
      * @Assert\NotBlank()
-     * @Assert\Type("Symfony\Component\Form\Extension\Core\Type\IntegerType")
+     * @Assert\GreaterThan( value = 0 )
+     *
      */
     private $pointsLimit;
 
@@ -37,7 +38,6 @@ class Liste
      *
      * @ORM\Column(name="name", type="string")
      * @Assert\NotBlank()
-     * @Assert\Type("\String")
      */
     private $name;
 

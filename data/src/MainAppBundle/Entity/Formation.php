@@ -154,4 +154,9 @@ class Formation
     {
         return $this->formationEntities;
     }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }
