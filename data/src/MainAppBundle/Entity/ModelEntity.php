@@ -38,6 +38,11 @@ class ModelEntity
      */
     private $squadEntity;
 
+    /**
+     * @var
+     * @ORM\OneToOne(targetEntity="MainAppBundle\Entity\ProfilEntity")
+     */
+    private $profilEntity;
 
     /**
      * Get id
@@ -74,21 +79,55 @@ class ModelEntity
     }
 
     /**
-     * @return Liste
+     * @return SquadsEntity
      */
-    public function getSquadEntity()
+    public function getSquadEntity():SquadsEntity
     {
         return $this->squadEntity;
     }
 
     /**
-     * @param Liste $squadEntity
+     * @param SquadsEntity $squadEntity
      */
-    public function setSquadEntity($squadEntity)
+    public function setSquadEntity(SquadsEntity $squadsEntity)
     {
-        $this->squadEntity = $squadEntity;
+        $this->squadEntity = $squadsEntity;
     }
 
 
+
+
+    /**
+     * Set profilEntity
+     *
+     * @param \MainAppBundle\Entity\ProfilEntity $profilEntity
+     *
+     * @return ModelEntity
+     */
+    public function setProfilEntity(\MainAppBundle\Entity\ProfilEntity $profilEntity = null)
+    {
+        $this->profilEntity = $profilEntity;
+
+        return $this;
+    }
+
+    /**
+     * Get profilEntity
+     *
+     * @return \MainAppBundle\Entity\ProfilEntity
+     */
+    public function getProfilEntity()
+    {
+        return $this->profilEntity;
+    }
+
+
+    public function getProfilForCurrentLife()
+    {
+        $model = $this->getModelTemplate();
+        $pv = $this->getProfilEntity()->getWound();
+        $profil = $model->getProfilsByWound($pv);
+        return $profil;
+    }
 
 }
