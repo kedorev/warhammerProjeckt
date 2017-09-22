@@ -163,4 +163,16 @@ class DefaultController extends Controller
         return $this->render('@MainApp/Default/listShow.html.twig', array('liste' => $list));
     }
 
+
+    /**
+     * @Route("/lists", name="showAllList")
+     */
+    public function showAllList()
+    {
+        $repository = $this->getDoctrine()->getManager()->getRepository('MainAppBundle:Liste');
+        $list = $repository->findAll();
+
+        return $this->render('@MainApp/Liste/allList.html.twig', array('listArray' => $list));
+    }
+
 }
