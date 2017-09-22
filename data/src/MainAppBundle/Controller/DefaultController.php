@@ -6,7 +6,7 @@ use MainAppBundle\Entity\Formation;
 use MainAppBundle\Entity\FormationEntity;
 use MainAppBundle\Entity\Liste;
 use MainAppBundle\Form\ListeType;
-use MainAppBundle\Form\FormationEntityTypeOld;
+use MainAppBundle\Form\FormationEntityType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -163,48 +163,4 @@ class DefaultController extends Controller
         return $this->render('@MainApp/Default/listShow.html.twig', array('liste' => $list));
     }
 
-
-
-
-
-
-    /**
-     * @param Request $request
-     */
-    public function addFormation(Request $request, $id)
-    {
-        $user = $this->getUser();
-        if(!isset($user))
-        {
-            return $this->redirectToRoute('fos_user_security_login');
-        }
-
-        $formation = new FormationEntity();
-        $form = $this->createForm(FormationEntityTypeOld::class, $formation, ['entity_manager' => $this->getDoctrine()->getManager()]);
-        dump($form);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $formation = $form->getData();
-
-            $em = $this->getDoctrine()->getManager();
-            $formation->setList($em->getRepository(Liste::class)->find($id));
-            $em->persist($formation);
-            $em->flush();
-
-
-            return $this->redirectToRoute('main_app_listShow',  array('id' => $id));
-        }
-
-
-        return $this->render('@MainApp/Default/formationEntity.html.twig', array(
-            'form' => $form->createView(),
-        ));
-
-
-/*        return $this->render('@MainApp/Default/formationEntity.html.twig', array(
-            'form' => $form->createView(),
-        ));*/
-    }
 }

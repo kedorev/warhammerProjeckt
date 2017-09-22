@@ -6,7 +6,9 @@ use MainAppBundle\Entity\FormationEntity;
 use MainAppBundle\Entity\SquadsEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 /**
  * Squadsentity controller.
@@ -14,33 +16,32 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  */
 class SquadsEntityController extends Controller
 {
-    /**
-     * Lists all squadsEntity entities.
-     *
-     * @Route("/", name="squadsentity_index")
-     * @Method("GET")
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $squadsEntities = $em->getRepository('MainAppBundle:SquadsEntity')->findAll();
-
-        return $this->render('squadsentity/index.html.twig', array(
-            'squadsEntities' => $squadsEntities,
-        ));
-    }
 
     /**
      * Creates a new squadsEntity entity.
      *
-     * @Route("/list/{idList}/addSquadEntity/{idFormation}", name="squadsentity_new")
+     * @Route("/list/addSquad", name="squadsentity_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request, $idList, $idFormation)
+    public function newAction(Request $request)
     {
+        $listId = $request->get('list_id');
+        $idFormation = $request->get('formation_id');
+        if($listId == null)
+        {
+            dump($listId);
+            dump($request);
+            $listId = $request->request->get('mainappbundle_squadsentity')['listId'];
+            dump($listId);
+        }
+        if($idFormation == null)
+        {
+            $idFormation = $request->request->get('mainappbundle_squadsentity')['factionId'];
+        }
         $squadsEntity = new Squadsentity();
         $form = $this->createForm('MainAppBundle\Form\SquadsEntityType', $squadsEntity);
+        $form->add("listId", HiddenType::class, array("mapped"=>false, "data"=>$listId, "label"=>false));
+        $form->add("factionId", HiddenType::class, array("mapped"=>false, "data"=>$idFormation, "label"=>false));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -51,7 +52,7 @@ class SquadsEntityController extends Controller
             $em->flush();
 
 
-            return $this->redirectToRoute('main_app_listShow',  array('id' => $idList));
+            return $this->redirectToRoute('main_app_listShow',  array('id' => $listId));
 
         }
 
@@ -61,21 +62,6 @@ class SquadsEntityController extends Controller
         ));
     }
 
-    /**
-     * Finds and displays a squadsEntity entity.
-     *
-     * @Route("/squadEntity/{id}", name="squadsentity_show")
-     * @Method("GET")
-     */
-    public function showAction(SquadsEntity $squadsEntity)
-    {
-        $deleteForm = $this->createDeleteForm($squadsEntity);
-
-        return $this->render('squadsentity/show.html.twig', array(
-            'squadsEntity' => $squadsEntity,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
 
     /**
      * Displays a form to edit an existing squadsEntity entity.
