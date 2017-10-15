@@ -34,10 +34,7 @@ class SquadsEntityController extends Controller
         $idFormation = $request->get('formation_id');
         if($listId == null)
         {
-            dump($listId);
-            dump($request);
             $listId = $request->request->get('mainappbundle_squadsentity')['listId'];
-            dump($listId);
         }
         if($idFormation == null)
         {
@@ -56,42 +53,46 @@ class SquadsEntityController extends Controller
             $squadsEntity->setFormation($formation);
             $squadsModelRequirements =$squadsEntity->getSquadModel()->getSquadRequirements();
             $modelRepo = $em->getRepository(Models::class);
-            foreach ($squadsModelRequirements as $squadModelRequirement)
+        foreach ($squadsModelRequirements as $squadModelRequirement)
+        {
+            dump($squadModelRequirement);
+            $modelModel = $modelRepo->find($squadModelRequirement->getModel()->getId());
+            for($i=0; $i < $squadModelRequirement->getMin(); $i++)
             {
-                $modelModel = $modelRepo->find($squadModelRequirement->getId());
-                for($i=0; $i < $squadModelRequirement->getMin(); $i++)
-                {
-                    $modelEntity = new ModelEntity();
-                    $em->persist($modelEntity);
+                dump($modelModel);
+                $modelEntity = new ModelEntity();
+                $em->persist($modelEntity);
 
-                    $profil = new ProfilEntity();
-                    $em->persist($profil);
+                $profil = new ProfilEntity();
+                $em->persist($profil);
 
 
-                    $modelEntity->setProfilEntity($profil);
-                    $profil->setSave($modelModel->getSave());
-                    $profil->setLeadership($modelModel->getLeadership());
-                    $profil->setToughness($modelModel->getToughness());
-                    $profil->setWound($modelModel->getWound());
+                $modelEntity->setProfilEntity($profil);
+                $modelEntity->setModelTemplate($squadModelRequirement->getModel());
+                $profil->setSave($modelModel->getSave());
+                $profil->setLeadership($modelModel->getLeadership());
+                $profil->setToughness($modelModel->getToughness());
+                $profil->setWound($modelModel->getWound());
 
-                    $profilData = $modelEntity->getProfilForCurrentLife($profil->getWound());
+                $profilData = $modelEntity->getProfilForCurrentLife($profil->getWound());
 
-                    $profil->setAttack($profilData->getAttack());
-                    $profil->setBS($profilData->getBS());
-                    $profil->setMove($profilData->getMove());
-                    $profil->setWS($profilData->getWS());
-                    $modelEntity->setSquadEntity($squadsEntity);
-                    $squadsEntity->addModelsEntity($modelEntity->setModelTemplate($modelModel));
-                }
-
+                $profil->setAttack($profilData->getAttack());
+                $profil->setBS($profilData->getBS());
+                $profil->setMove($profilData->getMove());
+                $profil->setWS($profilData->getWS());
+                $profil->setStrength($profilData->getStrength());
+                $modelEntity->setSquadEntity($squadsEntity);
+                $squadsEntity->addModelsEntity($modelEntity->setModelTemplate($modelModel));
+                dump($modelEntity);
             }
+
+        }
 
             dump($squadsEntity);
             dump($squadsModelRequirements);
             $em->persist($squadsEntity);
             $em->flush();
 
-            die;
             return $this->redirectToRoute('main_app_listShow',  array('id' => $listId));
 
         }

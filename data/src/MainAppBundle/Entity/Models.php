@@ -463,7 +463,7 @@ class Models
     {
         foreach($this->profils as $profil)
         {
-            if($wound <= $profil->max_wound && $wound >= $profil->min_wound)
+            if($wound <= $profil->getMaxWound() && $wound >= $profil->getMinWound())
             {
                 return $profil;
             }

@@ -27,6 +27,110 @@
                                     {% for squadEntity in formation.SquadsEntity %}
                                         <div class="col-lg-12 col-md-12">
                                             {{ squadEntity.squadModel.name }}
+                                            <ul class="list-group">
+                                            {% for models in squadEntity.ModelsEntity %}
+                                                <li class="list-group-item">
+                                                    {{ models.getModelTemplate.name }}
+                                                    {#{% set modelTemplate = models.getModelTemplate %}
+                                                    <div class="dataModels" id="model{{ models.id }}">
+                                                        <div class="row">
+                                                            <div class="col-md-1"></div>
+                                                            <div class="col-md-10">
+                                                                <div class="model">
+                                                                    <table class="table table-bordered row">
+                                                                        <tr>
+                                                                            <th class="col-md-4">
+                                                                                Nom
+                                                                            </th>
+                                                                            <th class="col-md-1 text-center">
+                                                                                Touche CaC
+                                                                            </th>
+                                                                            <th class="col-md-1 text-center">
+                                                                                Touche Tir
+                                                                            </th>
+                                                                            <th class="col-md-1 text-center">
+                                                                                Force
+                                                                            </th>
+                                                                            <th class="col-md-1 text-center">
+                                                                                Endurance
+                                                                            </th>
+                                                                            <th class="col-md-1 text-center">
+                                                                                PdV
+                                                                            </th>
+                                                                            <th class="col-md-1 text-center">
+                                                                                Attaque
+                                                                            </th>
+                                                                            <th class="col-md-1 text-center">
+                                                                                Commandement
+                                                                            </th>
+                                                                            <th class="col-md-1 text-center">
+                                                                                Sauvegarde
+                                                                            </th>
+                                                                        </tr>
+                                                                        {% for profil in models.getProfilEntity %}
+                                                                            <tr>
+                                                                                <td class="">
+                                                                                    {{ modelTemplate.name }}
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    {{ profil.BS }}
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    {{ profil.WS }}
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    {{ profil.strength }}
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    {{ profil.toughness }}
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    {{ profil.wound }}
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    {{ profil.attack }}
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    {{ profil.leadership }}
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    {{ profil.save }}
+                                                                                </td>
+                                                                            </tr>
+                                                                        {% endfor %}
+                                                                    </table>
+
+                                                                    {% set weapons = modelTemplate.weapons %}
+                                                                    {% include "@MainApp/Partial/_weapon.html.twig"  %}
+
+                                                                    {% set abilities = modelTemplate.abilities %}
+                                                                    <table class="table table-bordered row">
+                                                                        <th colspan="2"> <H3>Competence</H3></th>
+                                                                        {% for ability in abilities %}
+                                                                            <tr>
+                                                                                <td class="col-md-2">
+                                                                                    {{ ability.name }}
+                                                                                </td>
+                                                                                <td class="col-md-10">
+                                                                                    {{ ability.description }}
+                                                                                </td>
+                                                                            </tr>
+                                                                        {% endfor %}
+                                                                    </table>
+
+                                                                    {% set keywords = modelTemplate.keysWord %}
+                                                                    <H3>Mots clefs</H3>
+                                                                    {% for keyword in keywords %}
+                                                                        {{ keyword.name }},
+                                                                    {% endfor %}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1"></div>
+                                                        </div>
+                                                    </div>#}
+                                                </li>
+                                            {% endfor %}
+                                            <ul/>
                                         </div>
                                     {% endfor %}
                                     <div class="col-lg-12 col-md-12">

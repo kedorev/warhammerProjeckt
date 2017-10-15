@@ -129,7 +129,16 @@ class LoadSquadData extends AbstractFixture implements OrderedFixtureInterface
                 ),
                 'min' => '3',
                 'max' => '9',
-            )
+            ),
+            '1' => array(
+                'name' => 'Strike team',
+                'type' => 'Troupe',
+                'requirement' => array(
+                    '0' => 'fire_warrior_into_strike_team',
+                ),
+                'min' => '5',
+                'max' => '12',
+            ),
         );
 
 
