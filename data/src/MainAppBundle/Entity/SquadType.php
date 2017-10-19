@@ -154,4 +154,9 @@ class SquadType
     {
         return $this->formationRequirements;
     }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

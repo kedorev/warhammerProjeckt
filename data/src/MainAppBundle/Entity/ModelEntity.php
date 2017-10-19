@@ -81,7 +81,7 @@ class ModelEntity
     /**
      * @return SquadsEntity
      */
-    public function getSquadEntity():SquadsEntity
+    public function getSquadEntity():?SquadsEntity
     {
         return $this->squadEntity;
     }
@@ -128,6 +128,11 @@ class ModelEntity
         $pv = $this->getProfilEntity()->getWound();
         $profil = $model->getProfilsByWound($pv);
         return $profil;
+    }
+
+    public function __toString()
+    {
+        return $this->getModelTemplate()->getName();
     }
 
 }

@@ -125,7 +125,7 @@ class DefaultController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $list = $form->getData();
-
+            $list->setOwner($user);
             $em = $this->getDoctrine()->getManager();
             $em->persist($list);
             $em->flush();

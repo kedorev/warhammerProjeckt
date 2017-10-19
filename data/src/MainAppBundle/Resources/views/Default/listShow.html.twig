@@ -27,10 +27,36 @@
                                     {% for squadEntity in formation.SquadsEntity %}
                                         <div class="col-lg-12 col-md-12">
                                             {{ squadEntity.squadModel.name }}
-                                            <ul class="list-group">
+                                            {% set i = 0 %}
                                             {% for models in squadEntity.ModelsEntity %}
-                                                <li class="list-group-item">
-                                                    {{ models.getModelTemplate.name }}
+                                                {% if i == 0 %}
+                                                <div class="row">
+                                                        {% endif %}
+
+                                                <div class="col-lg-2">
+                                                    <div class="card">
+                                                        <div class="card-block">
+                                                                {{ models.getModelTemplate.name }}
+
+                                                        </div>
+                                                        <div class="card-footer">
+
+                                                            <div class="icon pull-right">
+                                                                <a href="#"><i class="fa fa-envelope fa-fw fa-2x" aria-hidden="true"></i></a>
+                                                                <a href="#"><i class="fa fa-ban fa-2x" aria-hidden="true"></i></a>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% if i == 6 %}
+                                                    </div>
+                                                    {% set i = 0 %}
+                                                {% else %}
+                                                    {% set i = i +1 %}
+                                                {% endif %}
+
+
                                                     {#{% set modelTemplate = models.getModelTemplate %}
                                                     <div class="dataModels" id="model{{ models.id }}">
                                                         <div class="row">
@@ -128,8 +154,11 @@
                                                             <div class="col-md-1"></div>
                                                         </div>
                                                     </div>#}
-                                                </li>
+
                                             {% endfor %}
+                                                <li>
+                                                    <a class="addModel list-group-item" data-listId="{{liste.id}}" data-squadId="{{ squadEntity.id }}">add model</a>
+                                                </li>
                                             <ul/>
                                         </div>
                                     {% endfor %}

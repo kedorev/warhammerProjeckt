@@ -182,4 +182,10 @@ class SquadsEntity
     {
         $this->ModelsEntity->removeElement($modelsEntity);
     }
+
+
+    public function __toString()
+    {
+        return $this->getSquadModel()->getName();
+    }
 }

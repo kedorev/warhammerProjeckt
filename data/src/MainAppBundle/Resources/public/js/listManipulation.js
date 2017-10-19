@@ -27,15 +27,19 @@ jQuery(document).ready(function($) {
             '</form>');
         $('body').append(form);
         form.submit();
-        /*
-        $.ajax({
-            url: baseUrl+"/list/addFormation",
-            type:"POST",
-            data: [$(this).attr("data-")]
-        }).done(function( arg ) {
-            alert( "Données : " + arg );
-        });*/
-    })
+    });
+
+    $(".addModel").click(function () {
+
+
+        var url = baseUrl+"/list/addModel";
+        var form = $('<form action="' + url + '" method="post">' +
+            '<input type="number" name="list_id" value="' + $(this).attr("data-listId") + '" />' +
+            '<input type="number" name="squad_id" value="' + $(this).attr("data-squadId") + '" />' +
+            '</form>');
+        $('body').append(form);
+        form.submit();
+    });
 
     $(".collapse-focus").click(function(){
         $focusRow = $(this).attr("data-focus");
