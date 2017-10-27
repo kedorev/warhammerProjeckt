@@ -58,6 +58,18 @@ class Liste
 
 
     /**
+     * @var integer
+     * @ORM\Column(type="integer", name="artefact_number")
+     */
+    private $artefactNumber;
+
+    /**
+     * @var
+     * @ORM\ManyToMany(targetEntity="MainAppBundle\Entity\Artefact")
+     */
+    private $artefacts;
+
+    /**
      * Liste constructor.
      */
     public function __construct()
@@ -216,5 +228,63 @@ class Liste
     public function getFormationsListe()
     {
         return $this->formationsListe;
+    }
+
+    /**
+     * Set artefactNumber
+     *
+     * @param integer $artefactNumber
+     *
+     * @return Liste
+     */
+    public function setArtefactNumber($artefactNumber)
+    {
+        $this->artefactNumber = $artefactNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get artefactNumber
+     *
+     * @return integer
+     */
+    public function getArtefactNumber()
+    {
+        return $this->artefactNumber;
+    }
+
+    /**
+     * Add artefact
+     *
+     * @param \MainAppBundle\Entity\Artefact $artefact
+     *
+     * @return Liste
+     */
+    public function addArtefact(\MainAppBundle\Entity\Artefact $artefact)
+    {
+        $this->artefacts[] = $artefact;
+
+        return $this;
+    }
+
+    /**
+     * Remove artefact
+     *
+     * @param \MainAppBundle\Entity\Artefact $artefact
+     */
+    public function removeArtefact(\MainAppBundle\Entity\Artefact $artefact)
+    {
+        $this->artefacts->removeElement($artefact);
+    }
+
+    /**
+     * Get artefacts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArtefacts()
+    {
+        return $this->artefacts;
     }
 }

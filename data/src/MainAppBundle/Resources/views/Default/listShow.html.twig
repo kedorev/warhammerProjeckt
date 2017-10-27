@@ -9,7 +9,28 @@
             {% else %}
                 {{ dump(liste) }}
                 <h3>{{ liste.name }}</h3>
-                Points : {{ liste.pointsLimit }}
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label>Points : </label><input type="number" class="" value="{{ liste.pointsLimit }}">
+                    </div>
+                    <div class="form-group">
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Reglementaire
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="artefactNumber">Artefact number : </label><SELECT id="artefactNumber" name="artefactNumber" size="1">
+                            <OPTION>0
+                            <OPTION>1
+                            <OPTION>2
+                            <OPTION>3
+                        </SELECT>
+                    </div>
+                </form>
+                Command point : <span id="command point"></span>
                 <div class="panel-group" id="accordion">
                     {% set formationNum = 1 %}
                     {% for formation in liste.formationsListe %}
@@ -26,35 +47,27 @@
                                 <div class="panel-body row">
                                     {% for squadEntity in formation.SquadsEntity %}
                                         <div class="col-lg-12 col-md-12">
-                                            {{ squadEntity.squadModel.name }}
-                                            {% set i = 0 %}
+                                            <div class="flex-one-row">
+                                                {{ squadEntity.squadModel.name }}
+                                            </div>
+                                            <div class="card-container">
                                             {% for models in squadEntity.ModelsEntity %}
-                                                {% if i == 0 %}
-                                                <div class="row">
-                                                        {% endif %}
 
-                                                <div class="col-lg-2">
                                                     <div class="card">
                                                         <div class="card-block">
+                                                                <img class="flex-one-row" src="{{ asset('img/profil.png') }}">
                                                                 {{ models.getModelTemplate.name }}
 
                                                         </div>
                                                         <div class="card-footer">
 
                                                             <div class="icon pull-right">
-                                                                <a href="#"><i class="fa fa-envelope fa-fw fa-2x" aria-hidden="true"></i></a>
-                                                                <a href="#"><i class="fa fa-ban fa-2x" aria-hidden="true"></i></a>
+                                                                <div class="editModel"><i class="fa fa-cog fa-fw fa-2x" aria-hidden="true"></i></div>
+                                                                <div class="removeModel" data-modelid="{{ models.id }}" data-listid="{{ liste.id }}"><i class="fa fa-ban fa-2x" aria-hidden="true"></i></div>
 
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                {% if i == 6 %}
-                                                    </div>
-                                                    {% set i = 0 %}
-                                                {% else %}
-                                                    {% set i = i +1 %}
-                                                {% endif %}
 
 
                                                     {#{% set modelTemplate = models.getModelTemplate %}
@@ -156,10 +169,14 @@
                                                     </div>#}
 
                                             {% endfor %}
-                                                <li>
-                                                    <a class="addModel list-group-item" data-listId="{{liste.id}}" data-squadId="{{ squadEntity.id }}">add model</a>
-                                                </li>
-                                            <ul/>
+                                                {% if squadEntity.nbModels < squadEntity.squadModel.max %}
+                                                {% for j in range (squadEntity.nbModels,squadEntity.squadModel.max -1) %}
+                                                    <div class="card">
+                                                        <a class="addModel list-group-item" data-listId="{{liste.id}}" data-squadId="{{ squadEntity.id }}">
+                                                        <img src="{{ asset('img/add.png') }}"></a>
+                                                    </div>
+                                                {% endfor %}
+                                            {% endif %}
                                         </div>
                                     {% endfor %}
                                     <div class="col-lg-12 col-md-12">

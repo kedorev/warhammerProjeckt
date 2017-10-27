@@ -54,7 +54,7 @@ class squadRequirement
     /**
      * @var Models
      *
-     * @ORM\ManyToOne(targetEntity="MainAppBundle\Entity\Models")
+     * @ORM\ManyToOne(targetEntity="MainAppBundle\Entity\Models", inversedBy="requirementSquad")
      */
     private $model;
 

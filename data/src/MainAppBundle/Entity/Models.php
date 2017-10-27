@@ -118,6 +118,10 @@ class Models
      */
     private $ModelEntity;
 
+    /**
+     * @ORM\OneToMany(targetEntity="MainAppBundle\Entity\squadRequirement", mappedBy="model")
+     */
+    private $requirementSquad;
 
 
     public function __construct() {
@@ -553,5 +557,39 @@ class Models
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * Add requirementSquad
+     *
+     * @param \MainAppBundle\Entity\squadRequirement $requirementSquad
+     *
+     * @return Models
+     */
+    public function addRequirementSquad(\MainAppBundle\Entity\squadRequirement $requirementSquad)
+    {
+        $this->requirementSquad[] = $requirementSquad;
+
+        return $this;
+    }
+
+    /**
+     * Remove requirementSquad
+     *
+     * @param \MainAppBundle\Entity\squadRequirement $requirementSquad
+     */
+    public function removeRequirementSquad(\MainAppBundle\Entity\squadRequirement $requirementSquad)
+    {
+        $this->requirementSquad->removeElement($requirementSquad);
+    }
+
+    /**
+     * Get requirementSquad
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRequirementSquad()
+    {
+        return $this->requirementSquad;
     }
 }

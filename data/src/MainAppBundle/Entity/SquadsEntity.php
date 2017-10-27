@@ -86,29 +86,6 @@ class SquadsEntity
         return $this->squadModel;
     }
 
-    /**
-     * Set list
-     *
-     * @param \MainAppBundle\Entity\Liste $list
-     *
-     * @return SquadsEntity
-     */
-    public function setList(\MainAppBundle\Entity\Liste $list = null)
-    {
-        $this->list = $list;
-
-        return $this;
-    }
-
-    /**
-     * Get list
-     *
-     * @return \MainAppBundle\Entity\Liste
-     */
-    public function getList()
-    {
-        return $this->list;
-    }
 
     /**
      * @return array
@@ -187,5 +164,10 @@ class SquadsEntity
     public function __toString()
     {
         return $this->getSquadModel()->getName();
+    }
+
+    public function getNbModels()
+    {
+        return sizeof($this->getModelsEntity());
     }
 }

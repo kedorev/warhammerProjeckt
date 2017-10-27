@@ -22,4 +22,19 @@ class ModelsRepository extends \Doctrine\ORM\EntityRepository
         $query->setParameter("faction",$faction);
         return $query->getQuery()->getResult();
     }
+
+    public function getAllModelFromSquadWithoutExec($squadId)
+    {
+        return $this->createQueryBuilder('m')
+            ->join("m.requirementSquad", 'rs')
+            ->join('rs.squad', 's')
+            ->where("s.id = :squadId")
+            ->setParameter("squadId", $squadId);
+
+       /* return $this->createQueryBuilder('m')
+            ->innerJoin("sr.model", 'm')
+            ->innerJoin("sr.squad", 's')
+            ->where("s.id = :squadId")
+            ->setParameter("squadId", $squadId);*/
+    }
 }

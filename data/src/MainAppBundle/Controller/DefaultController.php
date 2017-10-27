@@ -158,6 +158,7 @@ class DefaultController extends Controller
             return $this->redirectToRoute('fos_user_security_login');
         }
         $repository = $this->getDoctrine()->getManager()->getRepository('MainAppBundle:Liste');
+
         $list = $repository->find($id);
 
         return $this->render('@MainApp/Default/listShow.html.twig', array('liste' => $list));

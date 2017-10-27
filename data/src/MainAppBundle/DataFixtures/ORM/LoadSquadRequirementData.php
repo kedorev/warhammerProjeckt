@@ -40,6 +40,13 @@ class LoadSquadRequirementData extends AbstractFixture implements OrderedFixture
                 'model' => "Fire warrior",
                 'squad' => 'Strike team',
             ),
+            "3" => array(
+                'name' => 'fire_shasui_into_strike_team',
+                'min' => '0',
+                'max' => '1',
+                'model' => "Fire warrior sha'shui",
+                'squad' => 'Strike team',
+            ),
         );
 
 

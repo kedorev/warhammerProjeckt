@@ -23,6 +23,7 @@ class LoadListData extends AbstractFixture implements OrderedFixtureInterface
             '0' => array(
                 "name" => "Tau test",
                 "points" => "1500",
+                "artefact" => 0,
                 "formation" => array(
                     '0' => 'PatrouilleA',
                 )
@@ -35,6 +36,7 @@ class LoadListData extends AbstractFixture implements OrderedFixtureInterface
             $liste = new Liste();
             $liste->setName($factionData["name"]);
             $liste->setPointsLimit($factionData["points"]);
+            $liste->setArtefactNumber($factionData["points"]);
             foreach ($factionData["formation"] as $formationEntity )
             {
                 $liste->addFormationsListe($this->getReference($formationEntity));

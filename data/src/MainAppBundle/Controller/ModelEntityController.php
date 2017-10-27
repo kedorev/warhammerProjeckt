@@ -4,6 +4,8 @@ namespace MainAppBundle\Controller;
 
 use Doctrine\ORM\Tools\ToolsException;
 use MainAppBundle\Entity\ModelEntity;
+use MainAppBundle\Entity\Models;
+use MainAppBundle\Entity\Squad;
 use MainAppBundle\Entity\SquadsEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -53,14 +55,17 @@ class ModelEntityController extends Controller
             $idSquad = $request->request->get('mainappbundle_modelentity')['squadId'];
         }
         dump($idSquad);
+        $em = $this->getDoctrine()->getManager();
+        $squadModele = $em->getRepository(Squad::class)->findOneById($em->getRepository(SquadsEntity::class)->findOneById($idSquad)->getSquadModel()->getId());
         $modelEntity = new Modelentity();
-        $form = $this->createForm('MainAppBundle\Form\ModelEntityType', $modelEntity);
+        $form = $this->createForm('MainAppBundle\Form\ModelEntityType', $modelEntity, [
+            'squad_type' => $squadModele
+        ]);
         $form->add("listId", HiddenType::class, array("mapped"=>false, "data"=>$listId, "label"=>false));
         $form->add("squadId", HiddenType::class, array("mapped"=>false, "data"=>$idSquad, "label"=>false));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($modelEntity);
 
             dump($_POST);
@@ -121,21 +126,25 @@ class ModelEntityController extends Controller
     /**
      * Deletes a modelEntity entity.
      *
-     * @Route("/modelentity/{id}", name="modelentity_delete")
-     * @Method("DELETE")
+     * @Route("/list/removeModel", name="modelentity_delete")
+     * @Method("POST")
      */
-    public function deleteAction(Request $request, ModelEntity $modelEntity)
+    public function deleteAction(Request $request)
     {
-        $form = $this->createDeleteForm($modelEntity);
-        $form->handleRequest($request);
+        $modelId = $request->get('model_id');
+        $listId = $request->get('list_id');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($modelEntity);
-            $em->flush();
-        }
 
-        return $this->redirectToRoute('modelentity_index');
+        $em = $this->getDoctrine()->getManager();
+        $model = $em->getRepository(ModelEntity::class)->find($modelId);
+        dump($modelId);
+        dump($model);
+        $squadEntity = $model->getSquadEntity();
+        $squadEntity->removeModelsEntity($model);
+        $em->remove($model);
+        $em->flush();
+
+        return $this->redirectToRoute('main_app_listShow',  array('id' => $listId));
     }
 
     /**

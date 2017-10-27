@@ -7,6 +7,9 @@ jQuery(document).ready(function($) {
         validateListData();
     });
 
+
+
+
     $(".addFormation").click(function(){
 
         var url = baseUrl+"/list/addFormation";
@@ -53,6 +56,16 @@ jQuery(document).ready(function($) {
             $row.show();
         }
         console.log($focusRow);
+    });
+
+    $(".removeModel").click(function(){
+        var url = baseUrl+"/list/removeModel";
+        var form = $('<form action="' + url + '" method="post">' +
+            '<input type="number" name="model_id" value="' + $(this).attr("data-modelid") + '" />' +
+            '<input type="number" name="list_id" value="' + $(this).attr("data-listId") + '" />' +
+            '</form>');
+        $('body').append(form);
+        form.submit();
     });
 });
 
