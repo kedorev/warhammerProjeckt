@@ -1,6 +1,7 @@
 <?php
 
 namespace MainAppBundle\Repository;
+use MainAppBundle\Entity\squadRequirement;
 
 /**
  * ModelsRepository
@@ -25,16 +26,17 @@ class ModelsRepository extends \Doctrine\ORM\EntityRepository
 
     public function getAllModelFromSquadWithoutExec($squadId)
     {
-        return $this->createQueryBuilder('m')
+
+
+        $query = $this->createQueryBuilder('m')
             ->join("m.requirementSquad", 'rs')
             ->join('rs.squad', 's')
             ->where("s.id = :squadId")
             ->setParameter("squadId", $squadId);
 
-       /* return $this->createQueryBuilder('m')
-            ->innerJoin("sr.model", 'm')
-            ->innerJoin("sr.squad", 's')
-            ->where("s.id = :squadId")
-            ->setParameter("squadId", $squadId);*/
+//        $modelRequirements = $this->getEntityManager()->getRepository(Sq::class)->findOneById(1);
+
+
+        return $query;
     }
 }
