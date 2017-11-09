@@ -287,4 +287,38 @@ class Liste
     {
         return $this->artefacts;
     }
+
+
+
+    public function getTotalPoint(): int
+    {
+        $point = 0;
+        foreach ( $this->getFormationsListe() as $formationEntity )
+        {
+            $point = $point + $formationEntity->getTotalPoint();
+        }
+        return $point;
+    }
+
+
+    public function getCommandPoint()
+    {
+        $commandPoint = 0;
+        foreach($this->getFormationsListe() as $formation)
+        {
+            $commandPoint = $commandPoint + $formation->getCommandPoint();
+        }
+        return $commandPoint;
+    }
+
+
+    public function isValid()
+    {
+        if($this->getTotalPoint() > $this->getPointsLimit())
+        {
+            return false;
+        }
+
+        return true;
+    }
 }

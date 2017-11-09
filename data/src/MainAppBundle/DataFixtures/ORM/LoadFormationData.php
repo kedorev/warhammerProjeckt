@@ -22,13 +22,16 @@ class LoadFormationData extends AbstractFixture implements OrderedFixtureInterfa
     {
         $modelsData = array(
             '0' => array(
-                'name' => "Brigade"
+                'name' => "Brigade",
+                'CP' => 6
             ),
             '1' => array(
-                'name' => "Patrouille"
+                'name' => "Patrouille",
+                'CP' => 3
             ),
             '2' => array(
-                'name' => "Bataillon"
+                'name' => "Bataillon",
+                'CP' => 3
             ),
         );
 
@@ -37,6 +40,7 @@ class LoadFormationData extends AbstractFixture implements OrderedFixtureInterfa
         {
             $formation = new Formation();
             $formation->setName($modelData['name']);
+            $formation->setCommandPoint($modelData['CP']);
 
             $manager->persist($formation);
             $manager->flush();

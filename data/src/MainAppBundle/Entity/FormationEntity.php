@@ -147,4 +147,53 @@ class FormationEntity
     {
         return $this->formationModel;
     }
+
+
+
+    public function getTotalPoint(): int
+    {
+        $point = 0;
+        foreach ( $this->getSquadsEntity() as $squadEntity )
+        {
+            $point = $point + $squadEntity->getTotalPoint();
+        }
+        return $point;
+    }
+
+
+    public function getCommandPoint()
+    {
+        return $this->getFormationModel()->getCommandPoint();
+    }
+
+
+    public function getNbSquadByType($typedId)
+    {
+        $count = 0;
+        foreach($this->getSquadsEntity() as $squad)
+        {
+            if($squad->getType() == $typedId)
+            {
+                $count++;
+            }
+        }
+        return $count;
+    }
+
+    public function isValide()
+    {
+        $formationRequirements = $this->getFormationModel()->getFormationRequirements();
+        foreach($formationRequirements as $formationRequirement)
+        {
+            if($this->getNbSquadByType($formationRequirement->getSquadType()->getId()) < $formationRequirement->getMin()  )
+            {
+                return false;
+            }
+            else if($this->getNbSquadByType($formationRequirement->getSquadType()->getId()) > $formationRequirement->getMax())
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }

@@ -170,4 +170,19 @@ class SquadsEntity
     {
         return sizeof($this->getModelsEntity());
     }
+
+    public function getTotalPoint(): int
+    {
+        $point = 0;
+        foreach ( $this->ModelsEntity as $ModelEntity )
+        {
+            $point = $point + $ModelEntity->getTotalPoint();
+        }
+        return $point;
+    }
+
+    public function getType()
+    {
+        return $this->getSquadModel()->getType()->getId();
+    }
 }

@@ -42,6 +42,10 @@ class Formation
      */
     private $formationRequirements;
 
+    /**
+     * @ORM\Column(name="command_point", type="integer")
+     */
+    private $commandPoint;
 
 
 
@@ -158,5 +162,29 @@ class Formation
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * Set commandPoint
+     *
+     * @param integer $commandPoint
+     *
+     * @return Formation
+     */
+    public function setCommandPoint( $commandPoint)
+    {
+        $this->commandPoint = $commandPoint;
+
+        return $this;
+    }
+
+    /**
+     * Get commandPoint
+     *
+     * @return integer
+     */
+    public function getCommandPoint()
+    {
+        return $this->commandPoint;
     }
 }

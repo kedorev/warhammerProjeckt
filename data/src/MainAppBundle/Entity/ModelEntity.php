@@ -81,7 +81,7 @@ class ModelEntity
     /**
      * @return SquadsEntity
      */
-    public function getSquadEntity():?SquadsEntity
+    public function getSquadEntity()
     {
         return $this->squadEntity;
     }
@@ -130,9 +130,21 @@ class ModelEntity
         return $profil;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getModelTemplate()->getName();
+    }
+
+
+
+    public function getTotalPoint(): int
+    {
+        $point = $this->getModelTemplate()->getPoint();
+        foreach ( $this->getModelTemplate()->getWeapons() as $weapon )
+        {
+            $point = $point + $weapon->getPrice();
+        }
+        return $point;
     }
 
 }
