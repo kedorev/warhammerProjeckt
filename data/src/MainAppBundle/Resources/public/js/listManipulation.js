@@ -58,6 +58,16 @@ jQuery(document).ready(function($) {
         console.log($focusRow);
     });
 
+    $(".editModel").click(function(){
+        var url = baseUrl+"/list/editModel";
+        var form = $('<form action="' + url + '" method="post">' +
+            '<input type="number" name="model_id" value="' + $(this).attr("data-modelid") + '" />' +
+            '<input type="number" name="list_id" value="' + $(this).attr("data-listId") + '" />' +
+            '</form>');
+        $('body').append(form);
+        form.submit();
+    });
+
     $(".removeModel").click(function(){
         var url = baseUrl+"/list/removeModel";
         var form = $('<form action="' + url + '" method="post">' +

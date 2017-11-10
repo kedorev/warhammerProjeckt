@@ -44,6 +44,14 @@ class ModelEntity
      */
     private $profilEntity;
 
+
+    /**
+     * @var
+     * @ORM\ManyToMany(targetEntity="MainAppBundle\Entity\Weapon")
+     */
+    private $weapons;
+
+
     /**
      * Get id
      *
@@ -147,4 +155,45 @@ class ModelEntity
         return $point;
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->weapons = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add weapon
+     *
+     * @param \MainAppBundle\Entity\Weapon $weapon
+     *
+     * @return ModelEntity
+     */
+    public function addWeapon(\MainAppBundle\Entity\Weapon $weapon)
+    {
+        $this->weapons[] = $weapon;
+
+        return $this;
+    }
+
+    /**
+     * Remove weapon
+     *
+     * @param \MainAppBundle\Entity\Weapon $weapon
+     */
+    public function removeWeapon(\MainAppBundle\Entity\Weapon $weapon)
+    {
+        $this->weapons->removeElement($weapon);
+    }
+
+    /**
+     * Get weapons
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getWeapons()
+    {
+        return $this->weapons;
+    }
 }

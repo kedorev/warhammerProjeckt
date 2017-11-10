@@ -17,13 +17,25 @@ class ModelEntityType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('modelTemplate', EntityType::class, [
-            'class' => Models::class,
-            'query_builder' => function (EntityRepository $repository) use ($options) {
-                return $repository->getAllModelFromSquadWithoutExec($options['squad_type']);
-            }
-        ])->remove('squadEntity')->remove('profilEntity');
 
+        if($options['methodUsed'] == "create")
+        {
+            $builder->remove('profilEntity');
+            $builder->add('modelTemplate', EntityType::class, [
+                'class' => Models::class,
+                'query_builder' => function (EntityRepository $repository) use ($options) {
+                    return $repository->getAllModelFromSquadWithoutExec($options['squad_type']);
+                }]);
+        }
+        elseif($options['methodUsed'] == "update")
+        {
+            $builder->remove('profilEntity');
+            $builder->remove('modelTemplate');
+            $builder->add('weapons');
+        }
+        $builder->remove('squadEntity');
+
+        dump($options);
     }
     
     /**
@@ -31,7 +43,8 @@ class ModelEntityType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired('squad_type');
+        $resolver->setDefined('squad_type');
+        $resolver->setRequired('methodUsed');
         $resolver->setDefaults(array(
             'data_class' => 'MainAppBundle\Entity\ModelEntity'
         ));

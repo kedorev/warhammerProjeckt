@@ -180,6 +180,7 @@ class FormationEntity
         return $count;
     }
 
+
     public function isValide()
     {
         $formationRequirements = $this->getFormationModel()->getFormationRequirements();
@@ -196,4 +197,6 @@ class FormationEntity
         }
         return true;
     }
+
+    
 }

@@ -85,7 +85,6 @@ class Weapon
      */
     private $rule;
 
-
     /**
      * Get id
      *
@@ -351,5 +350,10 @@ class Weapon
     public function getRule()
     {
         return $this->rule;
+    }
+
+    public function __toString():string
+    {
+        return $this->getName();
     }
 }

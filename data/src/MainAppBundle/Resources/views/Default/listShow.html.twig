@@ -61,14 +61,16 @@
                                                                 <img class="flex-one-row" src="{{ asset('img/profil.png') }}">
                                                                 {{ models.getModelTemplate.name }}
                                                                 {{ models.totalPoint }} pts
+                                                                {% for weapon in models.weapons %}
+                                                                    {{ weapon.name }}
+                                                                {% endfor %}
 
                                                         </div>
                                                         <div class="card-footer">
 
                                                             <div class="icon pull-right">
-                                                                <div class="editModel"><i class="fa fa-cog fa-fw fa-2x" aria-hidden="true"></i></div>
+                                                                <div class="editModel" data-modelid="{{ models.id }}" data-listid="{{ liste.id }}"><i class="fa fa-cog fa-fw fa-2x" aria-hidden="true"></i></div>
                                                                 <div class="removeModel" data-modelid="{{ models.id }}" data-listid="{{ liste.id }}"><i class="fa fa-ban fa-2x" aria-hidden="true"></i></div>
-
                                                             </div>
                                                         </div>
                                                     </div>

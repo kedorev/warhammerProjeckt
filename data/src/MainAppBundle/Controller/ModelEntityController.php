@@ -54,11 +54,11 @@ class ModelEntityController extends Controller
         {
             $idSquad = $request->request->get('mainappbundle_modelentity')['squadId'];
         }
-        dump($idSquad);
         $em = $this->getDoctrine()->getManager();
         $squadModele = $em->getRepository(Squad::class)->findOneById($em->getRepository(SquadsEntity::class)->findOneById($idSquad)->getSquadModel()->getId());
         $modelEntity = new Modelentity();
         $form = $this->createForm('MainAppBundle\Form\ModelEntityType', $modelEntity, [
+            'methodUsed' => "create",
             'squad_type' => $squadModele
         ]);
         $form->add("listId", HiddenType::class, array("mapped"=>false, "data"=>$listId, "label"=>false));
@@ -68,9 +68,12 @@ class ModelEntityController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($modelEntity);
 
-            dump($_POST);
             $squadsEntity = $em->getRepository(SquadsEntity::class)->find($idSquad);
             $modelEntity->setSquadEntity($squadsEntity);
+            foreach($modelEntity->getModelTemplate()->getWeapons() as $weapon)
+            {
+                $modelEntity->addWeapon($weapon);
+            }
             $em->flush();
 
             return $this->redirectToRoute('main_app_listShow',  array('id' => $listId));
@@ -101,25 +104,44 @@ class ModelEntityController extends Controller
     /**
      * Displays a form to edit an existing modelEntity entity.
      *
-     * @Route("/modelentity/{id}/edit", name="modelentity_edit")
-     * @Method({"GET", "POST"})
+     * @Route("/list/editModel", name="modelentity_edit")
+     * @Method({"POST"})
      */
-    public function editAction(Request $request, ModelEntity $modelEntity)
+    public function editAction(Request $request)
     {
-        $deleteForm = $this->createDeleteForm($modelEntity);
-        $editForm = $this->createForm('MainAppBundle\Form\ModelEntityType', $modelEntity);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('modelentity_edit', array('id' => $modelEntity->getId()));
+        $modelId = $request->get('model_id');
+        $listId = $request->get('list_id');
+        if($listId == null)
+        {
+            $listId = $request->request->get('mainappbundle_modelentity')['listId'];
+        }
+        if($modelId == null)
+        {
+            $idSquad = $request->request->get('mainappbundle_modelentity')['modelId'];
         }
 
-        return $this->render('modelentity/edit.html.twig', array(
+        $em =  $this->getDoctrine()->getManager();
+        $modelEntity = $em->getRepository(ModelEntity::class)->findOneById($modelId);
+        //$deleteForm = $this->createDeleteForm($modelEntity);
+        $form = $this->createForm('MainAppBundle\Form\ModelEntityType', $modelEntity,[
+            'methodUsed' => "update"
+        ]);
+        $form->add("listId", HiddenType::class, array("mapped"=>false, "data"=>$listId, "label"=>false));
+        $form->add("modelId", HiddenType::class, array("mapped"=>false, "data"=>$modelId, "label"=>false));
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+
+
+            return $this->redirectToRoute('main_app_listShow',  array('id' => $listId));
+        }
+
+        return $this->render('@MainApp/modelentity/edit.html.twig', array(
             'modelEntity' => $modelEntity,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'edit_form' => $form->createView(),
+            //'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -137,8 +159,7 @@ class ModelEntityController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $model = $em->getRepository(ModelEntity::class)->find($modelId);
-        dump($modelId);
-        dump($model);
+;
         $squadEntity = $model->getSquadEntity();
         $squadEntity->removeModelsEntity($model);
         $em->remove($model);
