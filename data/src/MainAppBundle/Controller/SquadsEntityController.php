@@ -9,6 +9,7 @@ use MainAppBundle\Entity\Models;
 use MainAppBundle\Entity\Profil;
 use MainAppBundle\Entity\ProfilEntity;
 use MainAppBundle\Entity\SquadsEntity;
+use MainAppBundle\Entity\weaponEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -55,11 +56,9 @@ class SquadsEntityController extends Controller
             $modelRepo = $em->getRepository(Models::class);
         foreach ($squadsModelRequirements as $squadModelRequirement)
         {
-            dump($squadModelRequirement);
             $modelModel = $modelRepo->find($squadModelRequirement->getModel()->getId());
             for($i=0; $i < $squadModelRequirement->getMin(); $i++)
             {
-                dump($modelModel);
                 $modelEntity = new ModelEntity();
                 $em->persist($modelEntity);
 
@@ -83,6 +82,19 @@ class SquadsEntityController extends Controller
                 $profil->setStrength($profilData->getStrength());
                 $modelEntity->setSquadEntity($squadsEntity);
                 $squadsEntity->addModelsEntity($modelEntity->setModelTemplate($modelModel));
+
+                $weaponsModel = $modelEntity->getModelTemplate()->getWeapons();
+                foreach($weaponsModel as $weaponModel)
+                {
+                    for($j = 0; $j<$weaponModel->getcount(); $j++)
+                    {
+                        $weaponEntity = new weaponEntity();
+                        $weaponEntity->setModelEntity($modelEntity);
+
+                        $weaponEntity->setWeaponModel($weaponModel->getWeapon());
+                        $em->persist($weaponEntity);
+                    }
+                }
                 dump($modelEntity);
             }
 

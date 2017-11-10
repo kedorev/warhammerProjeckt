@@ -7,6 +7,7 @@ use MainAppBundle\Entity\ModelEntity;
 use MainAppBundle\Entity\Models;
 use MainAppBundle\Entity\Squad;
 use MainAppBundle\Entity\SquadsEntity;
+use MainAppBundle\Entity\weaponEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -72,8 +73,15 @@ class ModelEntityController extends Controller
             $modelEntity->setSquadEntity($squadsEntity);
             foreach($modelEntity->getModelTemplate()->getWeapons() as $weapon)
             {
-                $modelEntity->addWeapon($weapon);
+                for($i=1; $i < $weapon->getCount(); )
+                {
+                    $weaponEntity = new weaponEntity();
+                    //$weaponEntity->
+                    //$modelEntity->addWeaponsEntity(new );
+                }
+
             }
+            die;
             $em->flush();
 
             return $this->redirectToRoute('main_app_listShow',  array('id' => $listId));

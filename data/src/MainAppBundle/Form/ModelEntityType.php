@@ -31,7 +31,7 @@ class ModelEntityType extends AbstractType
         {
             $builder->remove('profilEntity');
             $builder->remove('modelTemplate');
-            $builder->add('weapons');
+            $builder->add('weaponsEntity');
         }
         $builder->remove('squadEntity');
 

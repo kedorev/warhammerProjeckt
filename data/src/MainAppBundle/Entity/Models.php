@@ -106,9 +106,7 @@ class Models
     private $point;
 
     /**
-     * @var array(Weapon)
-     *
-     * @ORM\ManyToMany(targetEntity="MainAppBundle\Entity\Weapon")
+     * @ORM\OneToMany(targetEntity="MainAppBundle\Entity\Weapons_Model",mappedBy="model")
      */
     private $weapons;
 
@@ -203,39 +201,7 @@ class Models
         return $this->keysWord;
     }
 
-    /**
-     * Add weapon
-     *
-     * @param \MainAppBundle\Entity\Weapon $weapon
-     *
-     * @return Models
-     */
-    public function addWeapon(\MainAppBundle\Entity\Weapon $weapon)
-    {
-        $this->weapons[] = $weapon;
 
-        return $this;
-    }
-
-    /**
-     * Remove weapon
-     *
-     * @param \MainAppBundle\Entity\Weapon $weapon
-     */
-    public function removeWeapon(\MainAppBundle\Entity\Weapon $weapon)
-    {
-        $this->weapons->removeElement($weapon);
-    }
-
-    /**
-     * Get weapons
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getWeapons()
-    {
-        return $this->weapons;
-    }
 
     /**
      * @return int
@@ -591,5 +557,39 @@ class Models
     public function getRequirementSquad()
     {
         return $this->requirementSquad;
+    }
+
+    /**
+     * Add weapon
+     *
+     * @param \MainAppBundle\Entity\Weapons_Model $weapon
+     *
+     * @return Models
+     */
+    public function addWeapon(\MainAppBundle\Entity\Weapons_Model $weapon)
+    {
+        $this->weapons[] = $weapon;
+
+        return $this;
+    }
+
+    /**
+     * Remove weapon
+     *
+     * @param \MainAppBundle\Entity\Weapons_Model $weapon
+     */
+    public function removeWeapon(\MainAppBundle\Entity\Weapons_Model $weapon)
+    {
+        $this->weapons->removeElement($weapon);
+    }
+
+    /**
+     * Get weapons
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getWeapons()
+    {
+        return $this->weapons;
     }
 }

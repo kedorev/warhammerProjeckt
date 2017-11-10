@@ -40,9 +40,6 @@ class LoadModelsData extends AbstractFixture implements OrderedFixtureInterface
                         'max' => 1,
                     ),
                 ),
-                'weapon' => array(
-                    '0' => "Fusil a impulsion",
-                ),
                 'keyword' => array(
 
                 ),
@@ -70,9 +67,6 @@ class LoadModelsData extends AbstractFixture implements OrderedFixtureInterface
                         'min' => 1,
                         'max' => 1,
                     ),
-                ),
-                'weapon' => array(
-                    '0' => "Fusil a impulsion",
                 ),
                 'keyword' => array(
 
@@ -103,9 +97,6 @@ class LoadModelsData extends AbstractFixture implements OrderedFixtureInterface
                         'max' => 3,
                     )
                 ),
-                'weapon' => array(
-                    '0' => "Fusil a plasma",
-                ),
                 'keyword' => array(
                     '0' => "Vol",
                     '1' => "Battlesuit",
@@ -135,9 +126,6 @@ class LoadModelsData extends AbstractFixture implements OrderedFixtureInterface
                         'min' => 1,
                         'max' => 3,
                     )
-                ),
-                'weapon' => array(
-                    '0' => "Fusil a plasma",
                 ),
                 'keyword' => array(
                     '0' => "Vol",
@@ -193,11 +181,11 @@ class LoadModelsData extends AbstractFixture implements OrderedFixtureInterface
                 $model->addAbility($this->getReference($ability));
             }
 
-
+/*
             foreach($modelData['weapon'] as $weapon)
             {
                 $model->addWeapon($this->getReference($weapon));
-            }
+            }*/
             $manager->persist($model);
             $manager->flush();
 

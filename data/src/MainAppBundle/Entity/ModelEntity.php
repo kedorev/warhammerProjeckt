@@ -47,9 +47,9 @@ class ModelEntity
 
     /**
      * @var
-     * @ORM\ManyToMany(targetEntity="MainAppBundle\Entity\Weapon")
+     * @ORM\OneToMany(targetEntity="MainAppBundle\Entity\weaponEntity", mappedBy="modelEntity")
      */
-    private $weapons;
+    private $weaponsEntity;
 
 
     /**
@@ -148,9 +148,9 @@ class ModelEntity
     public function getTotalPoint(): int
     {
         $point = $this->getModelTemplate()->getPoint();
-        foreach ( $this->getModelTemplate()->getWeapons() as $weapon )
+        foreach ( $this->getWeaponsEntity() as $weapon )
         {
-            $point = $point + $weapon->getPrice();
+            $point = $point + $weapon->getWeaponModel()->getPrice();
         }
         return $point;
     }
@@ -160,40 +160,42 @@ class ModelEntity
      */
     public function __construct()
     {
-        $this->weapons = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->weaponsEntity = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+
+
     /**
-     * Add weapon
+     * Add weaponsEntity
      *
-     * @param \MainAppBundle\Entity\Weapon $weapon
+     * @param \MainAppBundle\Entity\weaponEntity $weaponsEntity
      *
      * @return ModelEntity
      */
-    public function addWeapon(\MainAppBundle\Entity\Weapon $weapon)
+    public function addWeaponsEntity(\MainAppBundle\Entity\weaponEntity $weaponsEntity)
     {
-        $this->weapons[] = $weapon;
+        $this->weaponsEntity[] = $weaponsEntity;
 
         return $this;
     }
 
     /**
-     * Remove weapon
+     * Remove weaponsEntity
      *
-     * @param \MainAppBundle\Entity\Weapon $weapon
+     * @param \MainAppBundle\Entity\weaponEntity $weaponsEntity
      */
-    public function removeWeapon(\MainAppBundle\Entity\Weapon $weapon)
+    public function removeWeaponsEntity(\MainAppBundle\Entity\weaponEntity $weaponsEntity)
     {
-        $this->weapons->removeElement($weapon);
+        $this->weaponsEntity->removeElement($weaponsEntity);
     }
 
     /**
-     * Get weapons
+     * Get weaponsEntity
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getWeapons()
+    public function getWeaponsEntity()
     {
-        return $this->weapons;
+        return $this->weaponsEntity;
     }
 }

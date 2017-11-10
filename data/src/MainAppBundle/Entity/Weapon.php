@@ -77,6 +77,15 @@ class Weapon
      */
     private $price;
 
+    /**
+     * @ORM\OneToMany(targetEntity="MainAppBundle\Entity\Weapons_Model",mappedBy="weapon")
+     */
+    private $weapons_model;
+
+    /**
+     * @ORM\OneToMany(targetEntity="MainAppBundle\Entity\weaponEntity",mappedBy="weaponModel")
+     */
+    private $weaponsEntity;
 
     /**
      * @var string
@@ -355,5 +364,73 @@ class Weapon
     public function __toString():string
     {
         return $this->getName();
+    }
+
+    /**
+     * Add weaponsEntity
+     *
+     * @param \MainAppBundle\Entity\weaponEntity $weaponsEntity
+     *
+     * @return Weapon
+     */
+    public function addWeaponsEntity(\MainAppBundle\Entity\weaponEntity $weaponsEntity)
+    {
+        $this->weaponsEntity[] = $weaponsEntity;
+
+        return $this;
+    }
+
+    /**
+     * Remove weaponsEntity
+     *
+     * @param \MainAppBundle\Entity\weaponEntity $weaponsEntity
+     */
+    public function removeWeaponsEntity(\MainAppBundle\Entity\weaponEntity $weaponsEntity)
+    {
+        $this->weaponsEntity->removeElement($weaponsEntity);
+    }
+
+    /**
+     * Get weaponsEntity
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getWeaponsEntity()
+    {
+        return $this->weaponsEntity;
+    }
+
+    /**
+     * Add weaponsModel
+     *
+     * @param \MainAppBundle\Entity\Weapons_Model $weaponsModel
+     *
+     * @return Weapon
+     */
+    public function addWeaponsModel(\MainAppBundle\Entity\Weapons_Model $weaponsModel)
+    {
+        $this->weapons_model[] = $weaponsModel;
+
+        return $this;
+    }
+
+    /**
+     * Remove weaponsModel
+     *
+     * @param \MainAppBundle\Entity\Weapons_Model $weaponsModel
+     */
+    public function removeWeaponsModel(\MainAppBundle\Entity\Weapons_Model $weaponsModel)
+    {
+        $this->weapons_model->removeElement($weaponsModel);
+    }
+
+    /**
+     * Get weaponsModel
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getWeaponsModel()
+    {
+        return $this->weapons_model;
     }
 }
