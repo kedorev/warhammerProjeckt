@@ -65,9 +65,10 @@
         {% endfor %}
         </table>
 
-        {% set weapons = model.weapons %}
+        {% set weaponsModel = model.weapons %}
+            {% for weapon in weaponsModel.weapon %}
         {% include "@MainApp/Partial/_weapon.html.twig"  %}
-
+            {% endfor %}
         {% set abilities = model.abilities %}
         <table class="table table-bordered row">
            <th colspan="2"> <H3>Competence</H3></th>

@@ -61,10 +61,16 @@
                                                                 <img class="flex-one-row" src="{{ asset('img/profil.png') }}">
                                                                 {{ models.getModelTemplate.name }}
                                                                 {{ models.totalPoint }} pts
-                                                               {# {% for weapon in models.weapons %}
-                                                                    {{ weapon.name }}
-                                                                {% endfor %}#}
+                                                                <ul>
 
+                                                                    {% for weapon in models.weaponsEntity %}
+                                                                        <li>
+                                                                                {{ weapon.weaponModel.name }}
+
+                                                                        </li>
+                                                                    {% endfor %}
+
+                                                                </ul>
                                                         </div>
                                                         <div class="card-footer">
 
