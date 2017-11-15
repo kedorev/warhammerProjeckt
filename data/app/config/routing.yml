@@ -17,3 +17,6 @@ main_app_formation_entity:
 main_app:
     resource: "@MainAppBundle/Controller"
     type:  annotation
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
