@@ -1,4 +1,4 @@
 #!/bin/sh
-phpunit -c data
-data/vendor/bin/behat
-data/vendor/bin/phploc data/src
+phpunit
+vendor/bin/behat
+vendor/bin/phploc ./src
