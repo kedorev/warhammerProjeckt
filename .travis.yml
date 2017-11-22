@@ -6,7 +6,11 @@ php:
 before_script:
   - composer install -d data/
 
-script: phpunit
+script:
+  - cd data
+  - vendore/behat
+  - vendor/bin/phploc src
+  - phpunit
 
 notifications:
   email:
