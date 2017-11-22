@@ -7,7 +7,9 @@ before_script:
   - composer install -d data/
 
 script:
-  - ./replace.sh
+  - phpunit -c data
+  - data/vendor/bin/behat
+  - data/vendor/bin/phploc data/src
 
 notifications:
   email:
