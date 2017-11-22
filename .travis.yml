@@ -9,7 +9,9 @@ before_script:
 
 script:
   - cd ./data
-  - sh replace.sh
+  - phpunit
+  - vendor/bin/behat
+  - vendor/bin/phploc ./src
 
 notifications:
   email:
