@@ -4,6 +4,7 @@ php:
   - 7.1
 
 before_script:
+  - php -v
   - composer install --no-interaction -d data/
 
 script:
