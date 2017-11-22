@@ -6,7 +6,9 @@ php:
 before_script:
   - composer install -d data/
 
-script: sh replace.sh
+script:
+  - echo 'test'
+  - sh replace.sh
 
 notifications:
   email:
