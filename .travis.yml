@@ -9,10 +9,7 @@ before_script:
 
 script:
   - cd ./data
-  - pwd
-  - ls -lsa vendor/bin
-  - ls -lsa data/vendor/bin
-  - vendor/bin/behat
+  - vendor/bin/behat -v
   - vendor/bin/phploc ./src
 
 notifications:
